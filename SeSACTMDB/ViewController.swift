@@ -27,11 +27,15 @@ class ViewController: UIViewController {
     var genreDictionary: [Int: String] = [:]
     var movieInfo: [Movie] = []
     
+    var startPage = 1
+    var totalCount = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
         mainCollectionView.delegate = self
         mainCollectionView.dataSource = self
+        mainCollectionView.prefetchDataSource = self
         
         // design cell layout
         let cellLayout = UICollectionViewFlowLayout()
@@ -78,7 +82,7 @@ class ViewController: UIViewController {
 
     func requestAPI() {
         
-        let url = EndPoint.TMDB_URL + APIKey.TMDB_KEY
+        let url = EndPoint.TMDB_URL + APIKey.TMDB_KEY + "&page=" + String(startPage)
         
         AF.request(url, method: .get).validate().responseData { response in
             switch response.result {
@@ -87,6 +91,7 @@ class ViewController: UIViewController {
 //                print("JSON: \(json)")
                 
                 let resultArray = json["results"].arrayValue
+                self.totalCount = json["total_pages"].intValue
                 
                 for result in resultArray {
                     let id = result["id"].intValue
@@ -101,6 +106,7 @@ class ViewController: UIViewController {
                     let title = result["title"].stringValue
                     let imageURL = result["poster_path"].stringValue
                     let vote_average = result["vote_average"].doubleValue
+                    
                 
                     self.movieInfo.append(Movie(id: id, release_date: release_date, genre_ids: genre_ids, title: title, imageURL: imageURL, vote_average: vote_average))
                     self.mainCollectionView.reloadData()
@@ -143,6 +149,22 @@ class ViewController: UIViewController {
     
 }
 
+extension ViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            if movieInfo.count - 1 == indexPath.item && movieInfo.count < totalCount {
+                startPage += 1
+                requestAPI()
+            }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+        //
+    }
+}
+
+
 
 extension ViewController:UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -173,4 +195,18 @@ extension ViewController:UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        // movie id 유저디폴트에 저장
+        //save temporary character index
+//            UserDefaults.standard.set(indexPath.row, forKey:"moi")
+            
+            //present select check scene
+//            let sb = UIStoryboard(name: "SelectCheck", bundle: nil)
+//            guard let vc = sb.instantiateViewController(withIdentifier: SelectCheckViewController.identifier) as? SelectCheckViewController else {
+//                showAlert(message: "잘못된 스토리보드입니다.")
+//                return }
+//            vc.modalPresentationStyle = .overCurrentContext
+//            present(vc, animated: true)
+    }
 }
