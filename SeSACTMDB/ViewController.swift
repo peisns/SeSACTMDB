@@ -166,7 +166,7 @@ extension ViewController: UICollectionViewDataSourcePrefetching {
 
 
 
-extension ViewController:UICollectionViewDataSource, UICollectionViewDelegate {
+extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return movieInfo.count
     }
@@ -196,17 +196,12 @@ extension ViewController:UICollectionViewDataSource, UICollectionViewDelegate {
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
-        // movie id 유저디폴트에 저장
-        //save temporary character index
-//            UserDefaults.standard.set(indexPath.row, forKey:"moi")
             
-            //present select check scene
-//            let sb = UIStoryboard(name: "SelectCheck", bundle: nil)
-//            guard let vc = sb.instantiateViewController(withIdentifier: SelectCheckViewController.identifier) as? SelectCheckViewController else {
-//                showAlert(message: "잘못된 스토리보드입니다.")
-//                return }
-//            vc.modalPresentationStyle = .overCurrentContext
-//            present(vc, animated: true)
+//            push select check scene
+            let sb = UIStoryboard(name: "Credits", bundle: nil)
+        guard let vc = sb.instantiateViewController(withIdentifier: CreditsTableViewController.reuseIdentifier) as? CreditsTableViewController else { return }
+        
+        vc.selectedMovie = self.movieInfo[indexPath.item]
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
