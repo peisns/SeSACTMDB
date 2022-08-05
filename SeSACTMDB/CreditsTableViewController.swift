@@ -12,7 +12,8 @@ import SwiftyJSON
 
 class CreditsTableViewController: UITableViewController {
     
-    var credits: [String] = []
+    var casts: [String] = []
+    var crews: [String] = []
     var selectedMovie: Movie = Movie(id: 0, release_date: "", genre_ids: [], title: "", imageURL: "", vote_average: 0)
     
     @IBOutlet weak var movieTitleLabel: UILabel!
@@ -31,14 +32,25 @@ class CreditsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return credits.count
+        if section == 0 {
+            return casts.count
+        } else if section == 1 {
+            return crews.count
+        } else {
+            return 0
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CreditsTableViewCell.reuseIdentifier, for: indexPath) as? CreditsTableViewCell else { return UITableViewCell() }
         
-        cell.peopleName.text = credits[indexPath.row]
-        
+        if indexPath.section == 0 {
+            cell.peopleName.text = casts[indexPath.row]
+            cell.backgroundColor = .orange
+        } else if indexPath.section == 1 {
+            cell.peopleName.text = crews[indexPath.row]
+            cell.backgroundColor = .brown
+        }
         return cell
     }
  
@@ -52,12 +64,18 @@ class CreditsTableViewController: UITableViewController {
                 let json = JSON(value)
 //                print("JSON: \(json)")
                 
-                let resultArray = json["cast"].arrayValue
+                let castArray = json["cast"].arrayValue
+                let crewArray = json["crew"].arrayValue
                 
-                for result in resultArray {
-                    let credit = result["name"].stringValue
-                    self.credits.append(credit)
+                for cast in castArray {
+                    let credit = cast["name"].stringValue
+                    self.casts.append(credit)
                 }
+                for crew in crewArray {
+                    let credit = crew["name"].stringValue
+                    self.crews.append(credit)
+                }
+                
                 self.tableView.reloadData()
             case .failure(let error):
                 print(error)

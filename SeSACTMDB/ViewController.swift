@@ -176,7 +176,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
         cell.backgroundColor = .orange
         
         cell.releaseDateLabel.text = movieInfo[indexPath.item].release_date
-        cell.genreLabel.text = "#" + String(genreDictionary[movieInfo[indexPath.item].genre_ids[0]]!)
+        cell.genreLabel.text = "#" + String(genreDictionary[movieInfo[indexPath.item].genre_ids[0]] ?? "")
         let ImageURL = URL(string:EndPoint.TMDB_IMAGE_URL + movieInfo[indexPath.item].imageURL)
         cell.mediaImageView.kf.setImage(with: ImageURL)
         cell.titleLabel.text = movieInfo[indexPath.item].title
