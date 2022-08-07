@@ -37,117 +37,24 @@ class ViewController: UIViewController {
         mainCollectionView.dataSource = self
         mainCollectionView.prefetchDataSource = self
         
-        // design cell layout
-        let cellLayout = UICollectionViewFlowLayout()
-        let spacing: CGFloat = 0
-        let screenWidth = UIScreen.main.bounds.width
-        cellLayout.itemSize = CGSize(width: screenWidth , height: screenWidth)
-        cellLayout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
-        cellLayout.minimumLineSpacing = spacing
-        cellLayout.minimumInteritemSpacing = spacing
-
-        mainCollectionView.collectionViewLayout = cellLayout
+        mainCollectionView.collectionViewLayout = designCellLayout()
         
-        genreRequestAPI()
+        genreRequest()
         requestAPI()
-    
     }
     
-    
-
-    func genreRequestAPI() {
-        let genreURL = EndPoint.TMDB_GENRE_URL
-        
-        AF.request(genreURL, method: .get).validate().responseData { response in
-            switch response.result {
-            case .success(let value):
-                let json = JSON(value)
-//                print("JSON: \(json)")
-                
-                let genreArray = json["genres"].arrayValue
-                
-                for genre in genreArray {
-                    let genreID: Int = genre["id"].intValue
-                    let genreName: String = genre["name"].stringValue
-                    self.genreDictionary[genreID] = genreName
-                }
-//                print(self.genreDictionary)
-                
-            case .failure(let error):
-                print(error)
-            }
+    func genreRequest() {
+        genreRequestAPI.shared.getGenreData { dictionary in
+            self.genreDictionary = dictionary
         }
     }
-
-    
 
     func requestAPI() {
-        
-        let url = EndPoint.TMDB_URL + APIKey.TMDB_KEY + "&page=" + String(startPage)
-        
-        AF.request(url, method: .get).validate().responseData { response in
-            switch response.result {
-            case .success(let value):
-                let json = JSON(value)
-//                print("JSON: \(json)")
-                
-                let resultArray = json["results"].arrayValue
-                self.totalCount = json["total_pages"].intValue
-                
-                for result in resultArray {
-                    let id = result["id"].intValue
-                    let release_date = result["release_date"].stringValue
-                    
-                    let genre_idsArray = result["genre_ids"].arrayValue
-                    var genre_ids: [Int] = []
-                    for id in genre_idsArray {
-                        genre_ids.append(id.intValue)
-                    }
-                    
-                    let title = result["title"].stringValue
-                    let imageURL = result["poster_path"].stringValue
-                    let vote_average = result["vote_average"].doubleValue
-                    
-                
-                    self.movieInfo.append(Movie(id: id, release_date: release_date, genre_ids: genre_ids, title: title, imageURL: imageURL, vote_average: vote_average))
-                    self.mainCollectionView.reloadData()
-                }
-                
-            case .failure(let error):
-                print(error)
-            }
+        trendingRequestAPI.shared.getTrendingData(startPage: startPage) { totalCount, movieInfo in
+            self.movieInfo = movieInfo
+            self.mainCollectionView.reloadData()
         }
-        
     }
-    
-    func creditRequestAPI(movieid: Int) -> [String] {
-        
-        let url = EndPoint.TMDB_CREDITS_URL + String(movieid) + "/credits?api_key=\(APIKey.TMDB_KEY)&language=en-US"
-        var credits: [String] = []
-        
-        AF.request(url, method: .get).validate().responseData { response in
-            switch response.result {
-            case .success(let value):
-                let json = JSON(value)
-//                print("JSON: \(json)")
-                
-                let resultArray = json["cast"].arrayValue
-                
-                
-                for result in resultArray {
-                    
-                    let credit = result["name"].stringValue
-                    credits.append(credit)
-                }
-//                print(credits)
-            case .failure(let error):
-                print(error)
-            }
-            
-        }
-        return credits
-    }
-    
 }
 
 extension ViewController: UICollectionViewDataSourcePrefetching {
@@ -165,8 +72,6 @@ extension ViewController: UICollectionViewDataSourcePrefetching {
     }
 }
 
-
-
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return movieInfo.count
@@ -174,38 +79,40 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainCollectionViewCell.reuseIdentifier, for: indexPath) as? MainCollectionViewCell else { return UICollectionViewCell() }
-        cell.backgroundColor = .orange
         
-        cell.releaseDateLabel.text = movieInfo[indexPath.item].release_date
-        cell.genreLabel.text = "#" + String(genreDictionary[movieInfo[indexPath.item].genre_ids[0]] ?? "")
-        let ImageURL = URL(string:EndPoint.TMDB_IMAGE_URL + movieInfo[indexPath.item].imageURL)
-        cell.mediaImageView.kf.setImage(with: ImageURL)
-        cell.titleLabel.text = movieInfo[indexPath.item].title
-        
-//        let credits = creditRequestAPI(movieid: movieInfo[indexPath.item].id)
-        
-        cell.videoLinkButton.tag = indexPath.item
+        cell.designCell(movieInfo: movieInfo, indexPath: indexPath, genreDictionary: genreDictionary)
         cell.videoLinkButton.addTarget(self, action: #selector(videoLinkbuttonClicked(sender:)), for: .touchUpInside)
-        
         
         return cell
     }
                                        
     @objc func videoLinkbuttonClicked(sender: UIButton){
+        //push Video Scene
         let sb = UIStoryboard(name: "Video", bundle: nil)
         guard let vc = sb.instantiateViewController(withIdentifier: VideoViewController.reuseIdentifier) as? VideoViewController else { return }
-    
         vc.selectedMovieID = movieInfo[sender.tag].id
         navigationController?.pushViewController(vc, animated: true)
     }
                                    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            
-//            push select check scene
-            let sb = UIStoryboard(name: "Credits", bundle: nil)
+        //push Credits Scene
+        let sb = UIStoryboard(name: "Credits", bundle: nil)
         guard let vc = sb.instantiateViewController(withIdentifier: CreditsTableViewController.reuseIdentifier) as? CreditsTableViewController else { return }
-        
         vc.selectedMovie = self.movieInfo[indexPath.item]
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension ViewController {
+    func designCellLayout() -> UICollectionViewFlowLayout {
+        let cellLayout = UICollectionViewFlowLayout()
+        let spacing: CGFloat = 0
+        let screenWidth = UIScreen.main.bounds.width
+        cellLayout.itemSize = CGSize(width: screenWidth , height: screenWidth)
+        cellLayout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+        cellLayout.minimumLineSpacing = spacing
+        cellLayout.minimumInteritemSpacing = spacing
+        
+        return cellLayout
     }
 }

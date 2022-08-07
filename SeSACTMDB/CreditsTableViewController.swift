@@ -23,7 +23,11 @@ class CreditsTableViewController: UITableViewController {
 
         movieTitleLabel.text = selectedMovie.title
         
-        creditRequestAPI(movieid: selectedMovie.id)
+        creditRequestAPI.shared.creditRequestAPI(movieId: selectedMovie.id) { casts, crews in
+            self.casts = casts
+            self.crews = crews
+            self.tableView.reloadData()
+        }
         tableView.rowHeight = 200
     }
 
@@ -52,35 +56,5 @@ class CreditsTableViewController: UITableViewController {
             cell.backgroundColor = .brown
         }
         return cell
-    }
- 
-    func creditRequestAPI(movieid: Int) {
-        
-        let url = EndPoint.TMDB_CREDITS_URL + String(selectedMovie.id) + "/credits?api_key=\(APIKey.TMDB_KEY)&language=en-US"
-        
-        AF.request(url, method: .get).validate().responseData { response in
-            switch response.result {
-            case .success(let value):
-                let json = JSON(value)
-//                print("JSON: \(json)")
-                
-                let castArray = json["cast"].arrayValue
-                let crewArray = json["crew"].arrayValue
-                
-                for cast in castArray {
-                    let credit = cast["name"].stringValue
-                    self.casts.append(credit)
-                }
-                for crew in crewArray {
-                    let credit = crew["name"].stringValue
-                    self.crews.append(credit)
-                }
-                
-                self.tableView.reloadData()
-            case .failure(let error):
-                print(error)
-            }
-            
-        }
     }
 }
