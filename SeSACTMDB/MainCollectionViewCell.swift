@@ -16,4 +16,5 @@ class MainCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var castLabel: UILabel!
     
+    @IBOutlet weak var videoLinkButton: UIButton!
 }

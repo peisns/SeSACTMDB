@@ -104,6 +104,12 @@
                                                             <state key="normal" title="Button"/>
                                                             <buttonConfiguration key="configuration" style="plain" title="자세히보기"/>
                                                         </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fw3-cq-Io3">
+                                                            <rect key="frame" x="285" y="26" width="45" height="31"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <state key="normal" title="Button"/>
+                                                            <buttonConfiguration key="configuration" style="plain" image="link.circle.fill" catalog="system"/>
+                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 </view>
@@ -116,6 +122,7 @@
                                             <outlet property="mediaImageView" destination="PJa-nO-JJb" id="23C-gk-3Q8"/>
                                             <outlet property="releaseDateLabel" destination="ShL-qB-9e5" id="7cN-ky-fnQ"/>
                                             <outlet property="titleLabel" destination="Frq-NJ-I70" id="EYr-j9-3xa"/>
+                                            <outlet property="videoLinkButton" destination="fw3-cq-Io3" id="Tnc-6N-s52"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -162,6 +169,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="link.circle.fill" catalog="system" width="128" height="121"/>
         <image name="list.bullet" catalog="system" width="128" height="88"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <systemColor name="systemBackgroundColor">

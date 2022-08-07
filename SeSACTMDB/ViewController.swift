@@ -53,6 +53,7 @@ class ViewController: UIViewController {
     
     }
     
+    
 
     func genreRequestAPI() {
         let genreURL = EndPoint.TMDB_GENRE_URL
@@ -181,20 +182,23 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
         cell.mediaImageView.kf.setImage(with: ImageURL)
         cell.titleLabel.text = movieInfo[indexPath.item].title
         
-        let credits = creditRequestAPI(movieid: movieInfo[indexPath.item].id)
+//        let credits = creditRequestAPI(movieid: movieInfo[indexPath.item].id)
         
-        var castLabel = ""
-        for credit in credits {
-            castLabel += credit + ", "
-        }
-        
-//        cell.castLabel.text = castLabel
+        cell.videoLinkButton.tag = indexPath.item
+        cell.videoLinkButton.addTarget(self, action: #selector(videoLinkbuttonClicked(sender:)), for: .touchUpInside)
         
         
         return cell
     }
+                                       
+    @objc func videoLinkbuttonClicked(sender: UIButton){
+        let sb = UIStoryboard(name: "Video", bundle: nil)
+        guard let vc = sb.instantiateViewController(withIdentifier: VideoViewController.reuseIdentifier) as? VideoViewController else { return }
     
-    
+        vc.selectedMovieID = movieInfo[sender.tag].id
+        navigationController?.pushViewController(vc, animated: true)
+    }
+                                   
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             
 //            push select check scene
