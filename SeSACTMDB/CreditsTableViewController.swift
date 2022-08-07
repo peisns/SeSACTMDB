@@ -23,7 +23,7 @@ class CreditsTableViewController: UITableViewController {
 
         movieTitleLabel.text = selectedMovie.title
         
-        creditRequestAPI.shared.creditRequestAPI(movieId: selectedMovie.id) { casts, crews in
+        creditRequestAPI.shared.getCreditData(movieId: selectedMovie.id) { casts, crews in
             self.casts = casts
             self.crews = crews
             self.tableView.reloadData()
