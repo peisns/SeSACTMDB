@@ -13,5 +13,4 @@ class CreditsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var peopleName: UILabel!
     
-    
 }

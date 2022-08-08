@@ -51,7 +51,8 @@ class ViewController: UIViewController {
 
     func requestAPI() {
         trendingRequestAPI.shared.getTrendingData(startPage: startPage) { totalCount, movieInfo in
-            self.movieInfo = movieInfo
+            self.movieInfo.append(contentsOf: movieInfo)
+            self.totalCount = totalCount
             self.mainCollectionView.reloadData()
         }
     }

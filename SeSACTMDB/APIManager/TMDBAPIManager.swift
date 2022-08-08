@@ -13,7 +13,6 @@ import SwiftyJSON
 
 class genreRequestAPI {
     static let shared = genreRequestAPI()
-    
     private init() { }
     
     typealias completionHandler = ([Int : String]) -> Void
@@ -62,6 +61,7 @@ class trendingRequestAPI {
                 let resultArray = json["results"].arrayValue
                 
                 let totalCount = json["total_pages"].intValue
+                
                 for result in resultArray {
                     let id = result["id"].intValue
                     let release_date = result["release_date"].stringValue
@@ -76,6 +76,7 @@ class trendingRequestAPI {
                 let vote_average = result["vote_average"].doubleValue
                 movieInfo.append(Movie(id: id, release_date: release_date, genre_ids: genre_ids, title: title, imageURL: imageURL, vote_average: vote_average))
                 }
+                
                 completionHandler(totalCount, movieInfo)
                 
             case .failure(let error):
@@ -101,7 +102,6 @@ class creditRequestAPI {
                 let castArray = json["cast"].arrayValue
                 let crewArray = json["crew"].arrayValue
                 let casts = castArray.map { $0["name"].stringValue }
-                
                 let crews = crewArray.map { $0["name"].stringValue }
                 
                 completionHandler(casts, crews)
@@ -109,7 +109,32 @@ class creditRequestAPI {
             case .failure(let error):
                 print(error)
             }
+        }
+    }
+}
+
+class videoRequestAPI {
+    static let shared = videoRequestAPI()
+    private init() { }
+    
+    typealias completionHandler = (String, String) -> Void
+    func getVideoData(selectedMovieID:Int, completionHandler: @escaping completionHandler) {
+            let url = EndPoint.TMDB_VIDEO_URL + "\(selectedMovieID)/videos?api_key=\(APIKey.TMDB_KEY)&language=en-US"
             
+            AF.request(url, method: .get).validate().responseData { response in
+                switch response.result {
+                case .success(let value):
+                    let json = JSON(value)
+                    let key = json["results"][0]["key"].stringValue
+                    let site = json["results"][0]["site"].stringValue
+                    
+                    let url = site == "YouTube" ? "https://www.youtube.com/watch?v=" : "https://vimeo.com/"
+                    
+                    completionHandler(url, key)
+                    
+                case .failure(let error):
+                    print(error)
+            }
         }
     }
 }
