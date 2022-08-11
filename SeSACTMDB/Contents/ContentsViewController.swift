@@ -14,18 +14,10 @@ class ContentsViewController: UIViewController {
     @IBOutlet weak var bannerCollectionView: UICollectionView!
     @IBOutlet weak var contentsTableView: UITableView!
     
-    let numberList: [[Int]] = [
-        [Int](1...20),
-        [Int](21...40),
-        [Int](41...60),
-        [Int](61...80),
-        [Int](81...100),
-        [Int](101...120),
-        [Int](121...140),
-        [Int](141...160)
-    ]
-    
-    var trendingMovieArray:[Movie] = []
+    var trendingMovieArray: [Movie] = []
+    var recommendMovieArray: [Movie] = []
+    var similarMovieArray: [Movie] = []
+    var nowPlayingMovieArray: [Movie] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,12 +37,25 @@ class ContentsViewController: UIViewController {
     }
     
     func requestAPIData() {
-        print("aa")
         trendingRequestAPI.shared.getTrendingData(startPage: 1) { int, trendingMovieArray in
-            print("hi")
             self.trendingMovieArray = trendingMovieArray
             self.bannerCollectionView.reloadData()
-            self.contentsTableView.reloadData()
+            
+            recommendMovieRequestAPI.shared.getVideoData(movieID: self.trendingMovieArray[0].id) { movieArray in
+                self.recommendMovieArray = movieArray
+                
+                
+                let similarURL = EndPoint.TMDB_BASE_URL + String(trendingMovieArray[0].id) + EndPoint.TMDB_SIMILAR_URL
+                requestMovieArrayAPI.shared.getVideoData(url: similarURL) { movieArray in
+                    self.similarMovieArray = movieArray
+                    
+                    let nowPlayingURL = EndPoint.TMDB_BASE_URL + EndPoint.TMDB_NOWPLAYING_URL
+                    requestMovieArrayAPI.shared.getVideoData(url: nowPlayingURL) { movieArray in
+                        self.nowPlayingMovieArray = movieArray
+                        self.contentsTableView.reloadData()
+                    }
+                }
+            }
         }
     }
 }
@@ -60,8 +65,10 @@ extension ContentsViewController: UICollectionViewDelegate, UICollectionViewData
         if collectionView == bannerCollectionView {
             return trendingMovieArray.count
         } else {
-            return numberList[section].count
-        }    }
+            return recommendMovieArray.count
+        }
+        
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == bannerCollectionView {
@@ -71,13 +78,24 @@ extension ContentsViewController: UICollectionViewDelegate, UICollectionViewData
             let ImageURL = URL(string:EndPoint.TMDB_IMAGE_URL + trendingMovieArray[indexPath.item].imageURL)
             cell.posterView.posterImageView.kf.setImage(with: ImageURL)
             cell.posterView.titleLabel.text = ""
-            print("collectionView ", trendingMovieArray)
             cell.trendingRankLabel.text = "Trending Ranking #\(indexPath.item + 1) \(trendingMovieArray[indexPath.item].title)"
             cell.trendingRankLabel.textColor = .white
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentsCollectionViewCell.reuseIdentifier, for: indexPath) as? ContentsCollectionViewCell else { return UICollectionViewCell() }
-            cell.posterView.titleLabel.text = "\(numberList[collectionView.tag][indexPath.item])"
+            if collectionView.tag == 0 {
+                let ImageURL = URL(string:EndPoint.TMDB_IMAGE_URL + recommendMovieArray[indexPath.item].imageURL)
+                cell.posterView.posterImageView.kf.setImage(with: ImageURL)
+                cell.posterView.titleLabel.text = recommendMovieArray[indexPath.item].title
+            } else if collectionView.tag == 1 {
+                let ImageURL = URL(string:EndPoint.TMDB_IMAGE_URL + similarMovieArray[indexPath.item].imageURL)
+                cell.posterView.posterImageView.kf.setImage(with: ImageURL)
+                cell.posterView.titleLabel.text = similarMovieArray[indexPath.item].title
+            } else if collectionView.tag == 2 {
+                let ImageURL = URL(string:EndPoint.TMDB_IMAGE_URL + nowPlayingMovieArray[indexPath.item].imageURL)
+                cell.posterView.posterImageView.kf.setImage(with: ImageURL)
+                cell.posterView.titleLabel.text = nowPlayingMovieArray[indexPath.item].title
+            }
             return cell
         }
         
@@ -97,7 +115,7 @@ extension ContentsViewController: UICollectionViewDelegate, UICollectionViewData
 
 extension ContentsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberList.count
+        return trendingMovieArray.count > 0 ? 5 : 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -110,16 +128,17 @@ extension ContentsViewController: UITableViewDelegate, UITableViewDataSource {
         cell.contentsCollectionView.register(UINib(nibName: ContentsCollectionViewCell.reuseIdentifier, bundle: nil), forCellWithReuseIdentifier: ContentsCollectionViewCell.reuseIdentifier)
         cell.contentsCollectionView.tag = indexPath.row
         cell.contentsCollectionView.reloadData()
-        print("tableView", trendingMovieArray)
-//        cell.headerLabel.text = "가장 핫한 \(trendingMovieArray[indexPath.row].title)을 좋아하신다면?"
-//        switch indexPath.row {
-//        case 0:
-//            cell.headerLabel.text = "가장 핫한 \(trendingMovieArray[0].title)을 좋아하신다면?"
-//        case 1:
-//            cell.headerLabel.text = "가장 핫한 \(trendingMovieArray[0].title)과 비슷한 영화"
-//        default:
-//            cell.headerLabel.text = "Test"
-//        }
+        cell.headerLabel.text = "가장 핫한 \(trendingMovieArray[0].title)을 좋아하신다면?"
+        switch indexPath.row {
+        case 0:
+            cell.headerLabel.text = "가장 핫한 \(trendingMovieArray[0].title)을 좋아하신다면?"
+        case 1:
+            cell.headerLabel.text = "가장 핫한 \(trendingMovieArray[0].title)과 비슷한 영화"
+        case 2:
+            cell.headerLabel.text = "지금 상영중인 영화"
+        default:
+            cell.headerLabel.text = "Test"
+        }
         
         return cell
     }

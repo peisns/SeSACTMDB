@@ -11,6 +11,10 @@ class ContentsCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var posterView: PosterView!
     
+    
+    
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
