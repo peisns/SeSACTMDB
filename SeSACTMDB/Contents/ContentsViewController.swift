@@ -7,6 +7,8 @@
 
 import UIKit
 
+import Kingfisher
+
 class ContentsViewController: UIViewController {
 
     @IBOutlet weak var bannerCollectionView: UICollectionView!
@@ -23,6 +25,8 @@ class ContentsViewController: UIViewController {
         [Int](141...160)
     ]
     
+    var trendingMovieArray:[Movie] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
@@ -36,13 +40,25 @@ class ContentsViewController: UIViewController {
         contentsTableView.delegate = self
         contentsTableView.dataSource = self
 
+        requestAPIData()
+        
+    }
+    
+    func requestAPIData() {
+        print("aa")
+        trendingRequestAPI.shared.getTrendingData(startPage: 1) { int, trendingMovieArray in
+            print("hi")
+            self.trendingMovieArray = trendingMovieArray
+            self.bannerCollectionView.reloadData()
+            self.contentsTableView.reloadData()
+        }
     }
 }
 
 extension ContentsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == bannerCollectionView {
-            return 5
+            return trendingMovieArray.count
         } else {
             return numberList[section].count
         }    }
@@ -51,6 +67,13 @@ extension ContentsViewController: UICollectionViewDelegate, UICollectionViewData
         if collectionView == bannerCollectionView {
             
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentsBannerCollectionViewCell.reuseIdentifier, for: indexPath) as? ContentsBannerCollectionViewCell else { return UICollectionViewCell() }
+            cell.posterView.titleLabel.text = trendingMovieArray[indexPath.item].title
+            let ImageURL = URL(string:EndPoint.TMDB_IMAGE_URL + trendingMovieArray[indexPath.item].imageURL)
+            cell.posterView.posterImageView.kf.setImage(with: ImageURL)
+            cell.posterView.titleLabel.text = ""
+            print("collectionView ", trendingMovieArray)
+            cell.trendingRankLabel.text = "Trending Ranking #\(indexPath.item + 1) \(trendingMovieArray[indexPath.item].title)"
+            cell.trendingRankLabel.textColor = .white
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentsCollectionViewCell.reuseIdentifier, for: indexPath) as? ContentsCollectionViewCell else { return UICollectionViewCell() }
@@ -76,6 +99,7 @@ extension ContentsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return numberList.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ContentsTableViewCell.reuseIdentifier, for: indexPath) as? ContentsTableViewCell else { return UITableViewCell() }
         
@@ -85,8 +109,17 @@ extension ContentsViewController: UITableViewDelegate, UITableViewDataSource {
         cell.contentsCollectionView.dataSource = self
         cell.contentsCollectionView.register(UINib(nibName: ContentsCollectionViewCell.reuseIdentifier, bundle: nil), forCellWithReuseIdentifier: ContentsCollectionViewCell.reuseIdentifier)
         cell.contentsCollectionView.tag = indexPath.row
-
-
+        cell.contentsCollectionView.reloadData()
+        print("tableView", trendingMovieArray)
+//        cell.headerLabel.text = "가장 핫한 \(trendingMovieArray[indexPath.row].title)을 좋아하신다면?"
+//        switch indexPath.row {
+//        case 0:
+//            cell.headerLabel.text = "가장 핫한 \(trendingMovieArray[0].title)을 좋아하신다면?"
+//        case 1:
+//            cell.headerLabel.text = "가장 핫한 \(trendingMovieArray[0].title)과 비슷한 영화"
+//        default:
+//            cell.headerLabel.text = "Test"
+//        }
         
         return cell
     }

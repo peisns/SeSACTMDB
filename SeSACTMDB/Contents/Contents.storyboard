@@ -39,24 +39,37 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="183" height="164"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TDX-IL-np2">
+                                                    <rect key="frame" x="16" y="16" width="151" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="24" id="CVx-WK-93m"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="m2O-MS-kuC" firstAttribute="top" secondItem="RlP-Nl-owJ" secondAttribute="top" id="1CU-dd-H3u"/>
+                                                <constraint firstItem="TDX-IL-np2" firstAttribute="leading" secondItem="RlP-Nl-owJ" secondAttribute="leading" constant="16" id="Oc0-oF-IgK"/>
+                                                <constraint firstItem="TDX-IL-np2" firstAttribute="top" secondItem="RlP-Nl-owJ" secondAttribute="top" constant="16" id="gkJ-hc-Ujv"/>
                                                 <constraint firstAttribute="bottom" secondItem="m2O-MS-kuC" secondAttribute="bottom" id="l0m-bZ-YeD"/>
+                                                <constraint firstAttribute="trailing" secondItem="TDX-IL-np2" secondAttribute="trailing" constant="16" id="oaJ-NZ-tn6"/>
                                                 <constraint firstItem="m2O-MS-kuC" firstAttribute="leading" secondItem="RlP-Nl-owJ" secondAttribute="leading" id="rUg-Nk-J7w"/>
                                                 <constraint firstAttribute="trailing" secondItem="m2O-MS-kuC" secondAttribute="trailing" id="vOL-fE-Nnb"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="183" height="164"/>
                                         <connections>
-                                            <outlet property="posterView" destination="m2O-MS-kuC" id="Zjh-Ek-GWF"/>
+                                            <outlet property="posterView" destination="m2O-MS-kuC" id="91a-wz-5qf"/>
+                                            <outlet property="trendingRankLabel" destination="TDX-IL-np2" id="bl0-bg-f22"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="xhD-U3-Nq0">
                                 <rect key="frame" x="0.0" y="223" width="414" height="639"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContentsTableViewCell" rowHeight="212" id="7oP-R4-7NN" customClass="ContentsTableViewCell" customModule="SeSACTMDB" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.5" width="414" height="212"/>

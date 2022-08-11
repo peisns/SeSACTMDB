@@ -8,7 +8,7 @@
 import UIKit
 
 class ContentsBannerCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var posterView: PosterView!
     
-    @IBOutlet private weak var posterView: UIView!
-    
+    @IBOutlet weak var trendingRankLabel: UILabel!
 }

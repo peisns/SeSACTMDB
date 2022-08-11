@@ -10,6 +10,7 @@ import UIKit
 class PosterView: UIView {
 
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var posterImageView: UIImageView!
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
