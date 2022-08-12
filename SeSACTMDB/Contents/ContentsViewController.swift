@@ -18,6 +18,8 @@ class ContentsViewController: UIViewController {
     var recommendMovieArray: [Movie] = []
     var similarMovieArray: [Movie] = []
     var nowPlayingMovieArray: [Movie] = []
+    var popularMovieArray: [Movie] = []
+    var topRankMovieArray: [Movie] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,8 @@ class ContentsViewController: UIViewController {
         
         contentsTableView.delegate = self
         contentsTableView.dataSource = self
+        let nibName = UINib(nibName: TheaterTableViewCell.reuseIdentifier, bundle: nil)
+        contentsTableView.register(nibName, forCellReuseIdentifier: TheaterTableViewCell.reuseIdentifier)
 
         requestAPIData()
         
@@ -52,7 +56,16 @@ class ContentsViewController: UIViewController {
                     let nowPlayingURL = EndPoint.TMDB_BASE_URL + EndPoint.TMDB_NOWPLAYING_URL
                     requestMovieArrayAPI.shared.getVideoData(url: nowPlayingURL) { movieArray in
                         self.nowPlayingMovieArray = movieArray
-                        self.contentsTableView.reloadData()
+                        
+                        requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_POPULAR_URL) { movieArray in
+                            self.popularMovieArray = movieArray
+                                                        
+                            requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_TOPRANK_URL) { movieArray in
+                                self.topRankMovieArray = movieArray
+                                self.contentsTableView.reloadData()
+                                
+                            }
+                        }
                     }
                 }
             }
@@ -67,7 +80,6 @@ extension ContentsViewController: UICollectionViewDelegate, UICollectionViewData
         } else {
             return recommendMovieArray.count
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -95,6 +107,16 @@ extension ContentsViewController: UICollectionViewDelegate, UICollectionViewData
                 let ImageURL = URL(string:EndPoint.TMDB_IMAGE_URL + nowPlayingMovieArray[indexPath.item].imageURL)
                 cell.posterView.posterImageView.kf.setImage(with: ImageURL)
                 cell.posterView.titleLabel.text = nowPlayingMovieArray[indexPath.item].title
+            } else if collectionView.tag == 3 {
+                let ImageURL = URL(string:EndPoint.TMDB_IMAGE_URL + popularMovieArray[indexPath.item].imageURL)
+                cell.posterView.posterImageView.kf.setImage(with: ImageURL)
+                cell.posterView.titleLabel.text = popularMovieArray[indexPath.item].title
+                
+            } else if collectionView.tag == 4 {
+                let ImageURL = URL(string:EndPoint.TMDB_IMAGE_URL + topRankMovieArray[indexPath.item].imageURL)
+                cell.posterView.posterImageView.kf.setImage(with: ImageURL)
+                cell.posterView.titleLabel.text = topRankMovieArray[indexPath.item].title
+                
             }
             return cell
         }
@@ -114,35 +136,65 @@ extension ContentsViewController: UICollectionViewDelegate, UICollectionViewData
 }
 
 extension ContentsViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return trendingMovieArray.count > 0 ? 5 : 0
+        if section == 0 {
+            return 1
+        } else {
+            return trendingMovieArray.count > 0 ? 5 : 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ContentsTableViewCell.reuseIdentifier, for: indexPath) as? ContentsTableViewCell else { return UITableViewCell() }
-        
-        cell.backgroundColor = .black
-        cell.contentsCollectionView.backgroundColor = .black
-        cell.contentsCollectionView.delegate = self
-        cell.contentsCollectionView.dataSource = self
-        cell.contentsCollectionView.register(UINib(nibName: ContentsCollectionViewCell.reuseIdentifier, bundle: nil), forCellWithReuseIdentifier: ContentsCollectionViewCell.reuseIdentifier)
-        cell.contentsCollectionView.tag = indexPath.row
-        cell.contentsCollectionView.reloadData()
-        cell.headerLabel.text = "가장 핫한 \(trendingMovieArray[0].title)을 좋아하신다면?"
-        switch indexPath.row {
-        case 0:
+        if indexPath.section == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: TheaterTableViewCell.reuseIdentifier, for: indexPath) as? TheaterTableViewCell else { return UITableViewCell() }
+            cell.backgroundColor  = .clear
+            cell.theaterButton.layer.cornerRadius = 10
+            cell.theaterButton.setTitle("영화관 찾기", for: .normal)
+            cell.theaterButton.addTarget(self, action: #selector(presentTheaterScene), for:.touchUpInside)
+            cell.selectionStyle = .none
+            
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ContentsTableViewCell.reuseIdentifier, for: indexPath) as? ContentsTableViewCell else { return UITableViewCell() }
+            
+            cell.backgroundColor = .black
+            cell.contentsCollectionView.backgroundColor = .black
+            cell.contentsCollectionView.delegate = self
+            cell.contentsCollectionView.dataSource = self
+            cell.contentsCollectionView.register(UINib(nibName: ContentsCollectionViewCell.reuseIdentifier, bundle: nil), forCellWithReuseIdentifier: ContentsCollectionViewCell.reuseIdentifier)
+            cell.contentsCollectionView.tag = indexPath.row
+            cell.contentsCollectionView.reloadData()
             cell.headerLabel.text = "가장 핫한 \(trendingMovieArray[0].title)을 좋아하신다면?"
-        case 1:
-            cell.headerLabel.text = "가장 핫한 \(trendingMovieArray[0].title)과 비슷한 영화"
-        case 2:
-            cell.headerLabel.text = "지금 상영중인 영화"
-        default:
-            cell.headerLabel.text = "Test"
+            switch indexPath.row {
+            case 0:
+                cell.headerLabel.text = "가장 핫한 \(trendingMovieArray[0].title)을 좋아하신다면?"
+            case 1:
+                cell.headerLabel.text = "가장 핫한 \(trendingMovieArray[0].title)과 비슷한 영화"
+            case 2:
+                cell.headerLabel.text = "지금 상영중인 영화"
+            case 3:
+                cell.headerLabel.text = "인기 영화"
+            case 4:
+                cell.headerLabel.text = "역대급 TOP RANK!"
+            default:
+                cell.headerLabel.text = "Test"
+            }
+            cell.selectionStyle = .none
+            return cell
         }
-        
-        return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 190
+        return indexPath.section == 0 ? 80 : 190
+    }
+    
+    @objc func presentTheaterScene() {
+        let sb = UIStoryboard(name: "Theater", bundle: nil)
+        let vc = sb.instantiateViewController(withIdentifier: TheaterViewController.reuseIdentifier) as! TheaterViewController
+        
+        self.present(vc, animated: true)
     }
 }

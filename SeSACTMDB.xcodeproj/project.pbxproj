@@ -34,6 +34,10 @@
 		35B3A4E2289AB39600D9E7EA /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 35B3A4E1289AB39600D9E7EA /* Alamofire */; };
 		35B3A4E5289AB3B100D9E7EA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 35B3A4E4289AB3B100D9E7EA /* Kingfisher */; };
 		35B3A4E8289AB3DA00D9E7EA /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 35B3A4E7289AB3DA00D9E7EA /* SwiftyJSON */; };
+		35DD282228A6191900959369 /* TheaterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DD282028A6191800959369 /* TheaterTableViewCell.swift */; };
+		35DD282328A6191900959369 /* TheaterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35DD282128A6191900959369 /* TheaterTableViewCell.xib */; };
+		35DD282528A61D0300959369 /* Theater.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35DD282428A61D0300959369 /* Theater.storyboard */; };
+		35DD282828A61D2900959369 /* TheaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DD282728A61D2900959369 /* TheaterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +67,10 @@
 		35AD76FE28A0061500B25B13 /* TMDBAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBAPIManager.swift; sourceTree = "<group>"; };
 		35B3A4DB289A81EE00D9E7EA /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		35B3A4DE289A824200D9E7EA /* ReusableViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableViewProtocol.swift; sourceTree = "<group>"; };
+		35DD282028A6191800959369 /* TheaterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheaterTableViewCell.swift; sourceTree = "<group>"; };
+		35DD282128A6191900959369 /* TheaterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TheaterTableViewCell.xib; sourceTree = "<group>"; };
+		35DD282428A61D0300959369 /* Theater.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Theater.storyboard; sourceTree = "<group>"; };
+		35DD282728A61D2900959369 /* TheaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheaterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +111,8 @@
 			children = (
 				356DF4DB28A28A00004A81A4 /* Contents.storyboard */,
 				356DF4DD28A28A53004A81A4 /* ContentsViewController.swift */,
+				35DD282028A6191800959369 /* TheaterTableViewCell.swift */,
+				35DD282128A6191900959369 /* TheaterTableViewCell.xib */,
 				3502FA4B28A2A53700964239 /* ContentsTableViewCell.swift */,
 				351FD00A28A2AB2300522940 /* ContentsCollectionViewCell.swift */,
 				351FD00B28A2AB2300522940 /* ContentsCollectionViewCell.xib */,
@@ -152,12 +162,13 @@
 				35AD76FD28A005F200B25B13 /* APIManager */,
 				35B3A4DD289A81F800D9E7EA /* Protocol */,
 				3579FB3A2899FACE005A13F3 /* Key */,
+				356DF4DA28A289E9004A81A4 /* Contents */,
 				3579FB202899F6C7005A13F3 /* AppDelegate.swift */,
 				3579FB222899F6C7005A13F3 /* SceneDelegate.swift */,
+				35DD282628A61D0600959369 /* Theater */,
 				3579FB262899F6C7005A13F3 /* Main.storyboard */,
 				3579FB242899F6C7005A13F3 /* ViewController.swift */,
 				35B3A4DB289A81EE00D9E7EA /* MainCollectionViewCell.swift */,
-				356DF4DA28A289E9004A81A4 /* Contents */,
 				356DF4D928A289D3004A81A4 /* Credits */,
 				356DF4D828A289C2004A81A4 /* Video */,
 				3579FB292899F6C8005A13F3 /* Assets.xcassets */,
@@ -189,6 +200,15 @@
 				35B3A4DE289A824200D9E7EA /* ReusableViewProtocol.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		35DD282628A61D0600959369 /* Theater */ = {
+			isa = PBXGroup;
+			children = (
+				35DD282428A61D0300959369 /* Theater.storyboard */,
+				35DD282728A61D2900959369 /* TheaterViewController.swift */,
+			);
+			path = Theater;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,8 +284,10 @@
 				3579FB2D2899F6C8005A13F3 /* LaunchScreen.storyboard in Resources */,
 				3579FB2A2899F6C8005A13F3 /* Assets.xcassets in Resources */,
 				3579FB282899F6C7005A13F3 /* Main.storyboard in Resources */,
+				35DD282528A61D0300959369 /* Theater.storyboard in Resources */,
 				357E5A37289C163700537833 /* Credits.storyboard in Resources */,
 				35AD76FA289D4D7500B25B13 /* Video.storyboard in Resources */,
+				35DD282328A6191900959369 /* TheaterTableViewCell.xib in Resources */,
 				356DF4DC28A28A00004A81A4 /* Contents.storyboard in Resources */,
 				356DF4E328A28C44004A81A4 /* PosterView.xib in Resources */,
 			);
@@ -283,6 +305,8 @@
 				3579FB252899F6C7005A13F3 /* ViewController.swift in Sources */,
 				356DF4DE28A28A53004A81A4 /* ContentsViewController.swift in Sources */,
 				3502FA4C28A2A53700964239 /* ContentsTableViewCell.swift in Sources */,
+				35DD282828A61D2900959369 /* TheaterViewController.swift in Sources */,
+				35DD282228A6191900959369 /* TheaterTableViewCell.swift in Sources */,
 				3579FB3C2899FADF005A13F3 /* Constant.swift in Sources */,
 				35AD76FC289D4DC100B25B13 /* VideoViewController.swift in Sources */,
 				356DF4E028A28BAF004A81A4 /* ContentsBannerCollectionViewCell.swift in Sources */,
