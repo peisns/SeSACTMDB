@@ -36,15 +36,30 @@ class TheaterViewController: UIViewController {
         
         let campus = CLLocationCoordinate2D(latitude: 37.517829, longitude: 126.886270)
         setCenterRegion(center: campus)
-        addAnnotation(center: campus, title: "영등포캠퍼스")
+        addAnnotation()
     }
     
-    func addAnnotation(center: CLLocationCoordinate2D, title: String) {
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = center
-        annotation.title = title
+    func addAnnotation() {
+        var cgvLocations: [(name: String, latitude: Double, longitude: Double)] = [("CGV 상봉", 37.597460, 127.092334), ("CGV 건대입구", 37.539800, 127.066892), ("CGV 왕십리", 37.560575, 127.038756)]
         
-        mapView.addAnnotation(annotation)
+        let megaBoxLocations: [(name: String, latitude: Double, longitude: Double)] = [("메가박스 중랑", 37.593210, 127.074696), ("메가박스 군자", 37.555770, 127.078391), ("메가박스 성수", 37.541994, 127.044672)]
+        
+        let LotteCinemaLocations: [(name: String, latitude: Double, longitude: Double)] = [("롯데시네마 청량리", 37.580601, 127.048005), ("롯데시네마 건대", 37.538633, 127.073253), ("롯데시네마 중랑", 37.615124, 127.076002)]
+        
+        self.mapView.removeAnnotations(self.mapView.annotations)
+        
+        cgvLocations.append(contentsOf: megaBoxLocations)
+        cgvLocations.append(contentsOf: LotteCinemaLocations)
+
+        for theater in cgvLocations {
+            let annotation = MKPointAnnotation()
+            let center = CLLocationCoordinate2D(latitude: theater.latitude, longitude: theater.longitude)
+            annotation.coordinate = center
+            annotation.title = theater.name
+            
+            self.mapView.addAnnotation(annotation)
+        }
+
     }
     
     @IBAction func filterActonSheet(_ sender: UIButton) {
@@ -110,7 +125,7 @@ class TheaterViewController: UIViewController {
                 self.mapView.addAnnotation(annotation)
             }
         })
-        let lotte = UIAlertAction(title: "롯데박스", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
+        let lotte = UIAlertAction(title: "롯데시네마", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
             print("OK lotte")
             self.mapView.removeAnnotations(self.mapView.annotations)
             

@@ -38,6 +38,7 @@
 		35DD282328A6191900959369 /* TheaterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35DD282128A6191900959369 /* TheaterTableViewCell.xib */; };
 		35DD282528A61D0300959369 /* Theater.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35DD282428A61D0300959369 /* Theater.storyboard */; };
 		35DD282828A61D2900959369 /* TheaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DD282728A61D2900959369 /* TheaterViewController.swift */; };
+		35DD282A28A7C6F600959369 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DD282928A7C6F600959369 /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		35DD282128A6191900959369 /* TheaterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TheaterTableViewCell.xib; sourceTree = "<group>"; };
 		35DD282428A61D0300959369 /* Theater.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Theater.storyboard; sourceTree = "<group>"; };
 		35DD282728A61D2900959369 /* TheaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheaterViewController.swift; sourceTree = "<group>"; };
+		35DD282928A7C6F600959369 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			children = (
 				356DF4DB28A28A00004A81A4 /* Contents.storyboard */,
 				356DF4DD28A28A53004A81A4 /* ContentsViewController.swift */,
+				35DD282928A7C6F600959369 /* ProfileViewController.swift */,
 				35DD282028A6191800959369 /* TheaterTableViewCell.swift */,
 				35DD282128A6191900959369 /* TheaterTableViewCell.xib */,
 				3502FA4B28A2A53700964239 /* ContentsTableViewCell.swift */,
@@ -306,6 +309,7 @@
 				356DF4DE28A28A53004A81A4 /* ContentsViewController.swift in Sources */,
 				3502FA4C28A2A53700964239 /* ContentsTableViewCell.swift in Sources */,
 				35DD282828A61D2900959369 /* TheaterViewController.swift in Sources */,
+				35DD282A28A7C6F600959369 /* ProfileViewController.swift in Sources */,
 				35DD282228A6191900959369 /* TheaterTableViewCell.swift in Sources */,
 				3579FB3C2899FADF005A13F3 /* Constant.swift in Sources */,
 				35AD76FC289D4DC100B25B13 /* VideoViewController.swift in Sources */,
@@ -466,10 +470,10 @@
 				DEVELOPMENT_TEAM = BG68R7N92W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SeSACTMDB/Info.plist;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 주변에 있는 영화관의 검색을 위해 위치정보 조회 권한이 필요합니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치를 기반으로 주변 영화관 정보를 찾기위해 위치 접근 권한이 필요합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Theater;
+				INFOPLIST_KEY_UIMainStoryboardFile = Contents;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
@@ -497,10 +501,10 @@
 				DEVELOPMENT_TEAM = BG68R7N92W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SeSACTMDB/Info.plist;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 주변에 있는 영화관의 검색을 위해 위치정보 조회 권한이 필요합니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치를 기반으로 주변 영화관 정보를 찾기위해 위치 접근 권한이 필요합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Theater;
+				INFOPLIST_KEY_UIMainStoryboardFile = Contents;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;

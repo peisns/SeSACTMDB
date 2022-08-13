@@ -8,11 +8,14 @@
 import UIKit
 
 import Kingfisher
+import Alamofire
 
 class ContentsViewController: UIViewController {
 
+    @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var bannerCollectionView: UICollectionView!
     @IBOutlet weak var contentsTableView: UITableView!
+    
     
     var trendingMovieArray: [Movie] = []
     var recommendMovieArray: [Movie] = []
@@ -24,7 +27,9 @@ class ContentsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-
+        
+        profileButton.layer.cornerRadius = 10
+        
         bannerCollectionView.delegate = self
         bannerCollectionView.dataSource = self
         bannerCollectionView.collectionViewLayout = bannerCollectionViewLayout()
@@ -37,8 +42,20 @@ class ContentsViewController: UIViewController {
         contentsTableView.register(nibName, forCellReuseIdentifier: TheaterTableViewCell.reuseIdentifier)
 
         requestAPIData()
-        
     }
+    
+    @IBAction func rightBarButtonClicked(_ sender: UIButton) {
+        let sb = UIStoryboard(name: "Contents", bundle: nil)
+        let vc = sb.instantiateViewController(withIdentifier: ProfileViewController.reuseIdentifier) as! ProfileViewController
+        
+        vc.modalPresentationStyle = .overCurrentContext
+        present(vc, animated: false)
+
+    }
+    
+    
+    
+    
     
     func requestAPIData() {
         trendingRequestAPI.shared.getTrendingData(startPage: 1) { int, trendingMovieArray in
