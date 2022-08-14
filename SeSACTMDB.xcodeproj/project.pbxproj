@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3502FA4C28A2A53700964239 /* ContentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3502FA4B28A2A53700964239 /* ContentsTableViewCell.swift */; };
+		3515050628A879C900061612 /* YPImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 3515050528A879C900061612 /* YPImagePicker */; };
 		351FD00C28A2AB2300522940 /* ContentsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351FD00A28A2AB2300522940 /* ContentsCollectionViewCell.swift */; };
 		351FD00D28A2AB2300522940 /* ContentsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 351FD00B28A2AB2300522940 /* ContentsCollectionViewCell.xib */; };
 		356DF4DC28A28A00004A81A4 /* Contents.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 356DF4DB28A28A00004A81A4 /* Contents.storyboard */; };
@@ -83,6 +84,7 @@
 				35B3A4E8289AB3DA00D9E7EA /* SwiftyJSON in Frameworks */,
 				35B3A4E5289AB3B100D9E7EA /* Kingfisher in Frameworks */,
 				35B3A4E2289AB39600D9E7EA /* Alamofire in Frameworks */,
+				3515050628A879C900061612 /* YPImagePicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,12 +115,12 @@
 			children = (
 				356DF4DB28A28A00004A81A4 /* Contents.storyboard */,
 				356DF4DD28A28A53004A81A4 /* ContentsViewController.swift */,
-				35DD282928A7C6F600959369 /* ProfileViewController.swift */,
 				35DD282028A6191800959369 /* TheaterTableViewCell.swift */,
 				35DD282128A6191900959369 /* TheaterTableViewCell.xib */,
 				3502FA4B28A2A53700964239 /* ContentsTableViewCell.swift */,
 				351FD00A28A2AB2300522940 /* ContentsCollectionViewCell.swift */,
 				351FD00B28A2AB2300522940 /* ContentsCollectionViewCell.xib */,
+				35DD282928A7C6F600959369 /* ProfileViewController.swift */,
 				356DF4E428A28ECB004A81A4 /* Poster */,
 				356DF4E128A28BBA004A81A4 /* Banner */,
 			);
@@ -234,6 +236,7 @@
 				35B3A4E1289AB39600D9E7EA /* Alamofire */,
 				35B3A4E4289AB3B100D9E7EA /* Kingfisher */,
 				35B3A4E7289AB3DA00D9E7EA /* SwiftyJSON */,
+				3515050528A879C900061612 /* YPImagePicker */,
 			);
 			productName = SeSACTMDB;
 			productReference = 3579FB1D2899F6C7005A13F3 /* SeSACTMDB.app */;
@@ -267,6 +270,7 @@
 				35B3A4E0289AB39600D9E7EA /* XCRemoteSwiftPackageReference "Alamofire" */,
 				35B3A4E3289AB3B100D9E7EA /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				35B3A4E6289AB3DA00D9E7EA /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				3515050428A879C800061612 /* XCRemoteSwiftPackageReference "YPImagePicker" */,
 			);
 			productRefGroup = 3579FB1E2899F6C7005A13F3 /* Products */;
 			projectDirPath = "";
@@ -546,6 +550,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3515050428A879C800061612 /* XCRemoteSwiftPackageReference "YPImagePicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Yummypets/YPImagePicker.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		35B3A4E0289AB39600D9E7EA /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -573,6 +585,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3515050528A879C900061612 /* YPImagePicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3515050428A879C800061612 /* XCRemoteSwiftPackageReference "YPImagePicker" */;
+			productName = YPImagePicker;
+		};
 		35B3A4E1289AB39600D9E7EA /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 35B3A4E0289AB39600D9E7EA /* XCRemoteSwiftPackageReference "Alamofire" */;

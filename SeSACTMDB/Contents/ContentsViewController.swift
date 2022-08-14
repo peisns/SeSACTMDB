@@ -44,11 +44,17 @@ class ContentsViewController: UIViewController {
         requestAPIData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if let savedImage = UserDefaults.standard.data(forKey: "Profile") {
+            profileButton.setImage(UIImage(data: savedImage), for: .normal)
+        }
+    }
+    
     @IBAction func rightBarButtonClicked(_ sender: UIButton) {
         let sb = UIStoryboard(name: "Contents", bundle: nil)
         let vc = sb.instantiateViewController(withIdentifier: ProfileViewController.reuseIdentifier) as! ProfileViewController
         
-        vc.modalPresentationStyle = .overCurrentContext
+        vc.modalPresentationStyle = .fullScreen
         present(vc, animated: false)
 
     }
@@ -211,7 +217,7 @@ extension ContentsViewController: UITableViewDelegate, UITableViewDataSource {
     @objc func presentTheaterScene() {
         let sb = UIStoryboard(name: "Theater", bundle: nil)
         let vc = sb.instantiateViewController(withIdentifier: TheaterViewController.reuseIdentifier) as! TheaterViewController
-        
+    
         self.present(vc, animated: true)
     }
 }
