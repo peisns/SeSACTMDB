@@ -20,7 +20,7 @@ class ContentsTableViewCell: UITableViewCell {
         
     }
 
-    func setupUI() {
+    private func setupUI() {
 
         headerLabel.textColor = .white
         headerLabel.text = "추천 콘텐츠"
@@ -28,7 +28,7 @@ class ContentsTableViewCell: UITableViewCell {
         contentsCollectionView.backgroundColor = .clear
         contentsCollectionView.collectionViewLayout = collectionViewLayout()
     }
-    func collectionViewLayout() -> UICollectionViewFlowLayout {
+    private func collectionViewLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 100, height: 141)

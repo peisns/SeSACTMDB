@@ -18,7 +18,7 @@ class PosterView: UIView {
         loadView()
     }
     
-    func loadView() {
+    private func loadView() {
         guard let view = UINib(nibName: "PosterView", bundle: nil).instantiate(withOwner: self, options: nil).first as? UIView else { return }
         view.frame = bounds
         view.layer.cornerRadius = 10

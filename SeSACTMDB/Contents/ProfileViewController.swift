@@ -8,18 +8,21 @@
 import UIKit
 
 import YPImagePicker
-import Photos
 
 class ProfileViewController: UIViewController {
 
+    // 1. UIImagePickerController 인스턴스 생성
+    let picker = UIImagePickerController()
+    
     @IBOutlet weak var profileImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
         profileImageView.layer.cornerRadius = 20
+        picker.delegate = self
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         if let savedImage = UserDefaults.standard.data(forKey: "Profile") {
             profileImageView.image = UIImage(data: savedImage)
@@ -28,9 +31,33 @@ class ProfileViewController: UIViewController {
     
     @IBAction func backButtonClicked(_ sender: UIButton) {
         dismiss(animated: false)
-        
     }
     
+    //UIImagePickerController
+    @IBAction func profileChangeButtonClicked2(_ sender: UIButton) {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            picker.sourceType = .camera
+            picker.allowsEditing = true
+            
+            present(picker, animated: true)
+        } else {
+            // 사용불가, 사용자에게 alert
+        }
+    }
+    
+    @IBAction func profileChangeButtonClicked3(_ sender: UIButton) {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            picker.sourceType = .photoLibrary
+            picker.allowsEditing = true
+            
+            present(picker, animated: true)
+        } else {
+            // 사용불가, 사용자에게 alert
+        }
+    }
+    
+    
+    //Open Source
     @IBAction func profileChangeButtonClicked(_ sender: UIButton) {
         let picker = YPImagePicker()
         picker.didFinishPicking { [unowned picker] items, _ in
@@ -49,6 +76,23 @@ class ProfileViewController: UIViewController {
         }
         present(picker, animated: true, completion: nil)
     }
-    
+}
 
+//3. add Delegate
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    //4. after user selects a photo
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.profileImageView.image = image
+            UserDefaults.standard.set(image.jpegData(compressionQuality:1.0), forKey: "Profile")
+            dismiss(animated: true)
+        }
+    }
+    
+    //5. after user clicks a cancel
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    }
+    
+    
 }

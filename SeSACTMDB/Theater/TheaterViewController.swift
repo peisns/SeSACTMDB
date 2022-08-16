@@ -39,7 +39,7 @@ class TheaterViewController: UIViewController {
         addAnnotation()
     }
     
-    func addAnnotation() {
+    private func addAnnotation() {
         var cgvLocations: [(name: String, latitude: Double, longitude: Double)] = [("CGV 상봉", 37.597460, 127.092334), ("CGV 건대입구", 37.539800, 127.066892), ("CGV 왕십리", 37.560575, 127.038756)]
         
         let megaBoxLocations: [(name: String, latitude: Double, longitude: Double)] = [("메가박스 중랑", 37.593210, 127.074696), ("메가박스 군자", 37.555770, 127.078391), ("메가박스 성수", 37.541994, 127.044672)]

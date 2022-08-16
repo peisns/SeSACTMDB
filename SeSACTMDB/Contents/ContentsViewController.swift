@@ -17,12 +17,12 @@ class ContentsViewController: UIViewController {
     @IBOutlet weak var contentsTableView: UITableView!
     
     
-    var trendingMovieArray: [Movie] = []
-    var recommendMovieArray: [Movie] = []
-    var similarMovieArray: [Movie] = []
-    var nowPlayingMovieArray: [Movie] = []
-    var popularMovieArray: [Movie] = []
-    var topRankMovieArray: [Movie] = []
+    private var trendingMovieArray: [Movie] = []
+    private var recommendMovieArray: [Movie] = []
+    private var similarMovieArray: [Movie] = []
+    private var nowPlayingMovieArray: [Movie] = []
+    private var popularMovieArray: [Movie] = []
+    private var topRankMovieArray: [Movie] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,14 +63,13 @@ class ContentsViewController: UIViewController {
     
     
     
-    func requestAPIData() {
+    private func requestAPIData() {
         trendingRequestAPI.shared.getTrendingData(startPage: 1) { int, trendingMovieArray in
             self.trendingMovieArray = trendingMovieArray
             self.bannerCollectionView.reloadData()
             
             recommendMovieRequestAPI.shared.getVideoData(movieID: self.trendingMovieArray[0].id) { movieArray in
                 self.recommendMovieArray = movieArray
-                
                 
                 let similarURL = EndPoint.TMDB_BASE_URL + String(trendingMovieArray[0].id) + EndPoint.TMDB_SIMILAR_URL
                 requestMovieArrayAPI.shared.getVideoData(url: similarURL) { movieArray in
@@ -146,7 +145,7 @@ extension ContentsViewController: UICollectionViewDelegate, UICollectionViewData
         
     }
     
-    func bannerCollectionViewLayout() -> UICollectionViewFlowLayout {
+    private func bannerCollectionViewLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 141)
@@ -214,7 +213,7 @@ extension ContentsViewController: UITableViewDelegate, UITableViewDataSource {
         return indexPath.section == 0 ? 80 : 190
     }
     
-    @objc func presentTheaterScene() {
+    @objc private func presentTheaterScene() {
         let sb = UIStoryboard(name: "Theater", bundle: nil)
         let vc = sb.instantiateViewController(withIdentifier: TheaterViewController.reuseIdentifier) as! TheaterViewController
     
