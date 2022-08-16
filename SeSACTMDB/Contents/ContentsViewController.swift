@@ -79,10 +79,10 @@ class ContentsViewController: UIViewController {
                     requestMovieArrayAPI.shared.getVideoData(url: nowPlayingURL) { movieArray in
                         self.nowPlayingMovieArray = movieArray
                         
-                        requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_POPULAR_URL) { movieArray in
+                        requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_BASE_URL + EndPoint.TMDB_POPULAR_URL) { movieArray in
                             self.popularMovieArray = movieArray
                                                         
-                            requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_TOPRANK_URL) { movieArray in
+                            requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_BASE_URL + EndPoint.TMDB_TOPRANK_URL) { movieArray in
                                 self.topRankMovieArray = movieArray
                                 self.contentsTableView.reloadData()
                                 

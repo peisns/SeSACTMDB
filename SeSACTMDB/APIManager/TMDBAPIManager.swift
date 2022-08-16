@@ -79,7 +79,7 @@ class creditRequestAPI {
     
     func getCreditData(movieId: Int, completionHandler:@escaping ([String], [String])-> Void) {
         
-        let url = EndPoint.TMDB_CREDITS_URL + String(movieId) + "/credits?api_key=\(APIKey.TMDB_KEY)&language=en-US"
+        let url = EndPoint.TMDB_BASE_URL + String(movieId) + "/credits?api_key=\(APIKey.TMDB_KEY)&language=en-US"
         
         AF.request(url, method: .get).validate().responseData { response in
             switch response.result {
@@ -106,7 +106,7 @@ class videoRequestAPI {
     
     typealias completionHandler = (String, String) -> Void
     func getVideoData(selectedMovieID:Int, completionHandler: @escaping completionHandler) {
-            let url = EndPoint.TMDB_VIDEO_URL + "\(selectedMovieID)/videos?api_key=\(APIKey.TMDB_KEY)&language=en-US"
+        let url = EndPoint.TMDB_BASE_URL + "\(selectedMovieID)/videos?api_key=\(APIKey.TMDB_KEY)&language=en-US"
             
             AF.request(url, method: .get).validate().responseData { response in
                 switch response.result {
@@ -132,7 +132,7 @@ class recommendMovieRequestAPI {
     
     typealias completionHandler = ([Movie]) -> Void
     func getVideoData(movieID:Int, completionHandler: @escaping completionHandler) {
-        let url = EndPoint.TMDB_RECOMMEND_URL + "\(movieID)/recommendations?api_key=\(APIKey.TMDB_KEY)&language=en-US&page=1"
+        let url = EndPoint.TMDB_BASE_URL + "\(movieID)/recommendations?api_key=\(APIKey.TMDB_KEY)&language=en-US&page=1"
             
             AF.request(url, method: .get).validate().responseData { response in
                 switch response.result {
