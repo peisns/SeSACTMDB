@@ -44,17 +44,23 @@ class ViewController: UIViewController {
     }
     
     func genreRequest() {
-        genreRequestAPI.shared.getGenreData { dictionary in
+        getTMDBJson.shared.genreJSON { dictionary in
             self.genreDictionary = dictionary
         }
     }
 
     func requestAPI() {
-        trendingRequestAPI.shared.getTrendingData(startPage: startPage) { totalCount, movieInfo in
+        getTMDBJson.shared.getTrendingData(startPage: startPage) { totalCount, movieInfo in
             self.movieInfo.append(contentsOf: movieInfo)
             self.totalCount = totalCount
             self.mainCollectionView.reloadData()
         }
+        
+//        trendingRequestAPI.shared.getTrendingData(startPage: startPage) { totalCount, movieInfo in
+//            self.movieInfo.append(contentsOf: movieInfo)
+//            self.totalCount = totalCount
+//            self.mainCollectionView.reloadData()
+//        }
     }
 }
 

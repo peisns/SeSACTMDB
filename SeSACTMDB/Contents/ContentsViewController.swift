@@ -64,7 +64,7 @@ class ContentsViewController: UIViewController {
     
     
     private func requestAPIData() {
-        trendingRequestAPI.shared.getTrendingData(startPage: 1) { int, trendingMovieArray in
+        getTMDBJson.shared.getTrendingData(startPage: 1) { totalCount, trendingMovieArray in
             self.trendingMovieArray = trendingMovieArray
             self.bannerCollectionView.reloadData()
             
@@ -92,6 +92,35 @@ class ContentsViewController: UIViewController {
                 }
             }
         }
+        
+//        trendingRequestAPI.shared.getTrendingData(startPage: 1) { int, trendingMovieArray in
+//            self.trendingMovieArray = trendingMovieArray
+//            self.bannerCollectionView.reloadData()
+//
+//            recommendMovieRequestAPI.shared.getVideoData(movieID: self.trendingMovieArray[0].id) { movieArray in
+//                self.recommendMovieArray = movieArray
+//
+//                let similarURL = EndPoint.TMDB_BASE_URL + String(trendingMovieArray[0].id) + EndPoint.TMDB_SIMILAR_URL
+//                requestMovieArrayAPI.shared.getVideoData(url: similarURL) { movieArray in
+//                    self.similarMovieArray = movieArray
+//
+//                    let nowPlayingURL = EndPoint.TMDB_BASE_URL + EndPoint.TMDB_NOWPLAYING_URL
+//                    requestMovieArrayAPI.shared.getVideoData(url: nowPlayingURL) { movieArray in
+//                        self.nowPlayingMovieArray = movieArray
+//
+//                        requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_POPULAR_URL) { movieArray in
+//                            self.popularMovieArray = movieArray
+//
+//                            requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_TOPRANK_URL) { movieArray in
+//                                self.topRankMovieArray = movieArray
+//                                self.contentsTableView.reloadData()
+//
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
 }
 

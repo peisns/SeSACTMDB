@@ -474,7 +474,9 @@
 				DEVELOPMENT_TEAM = BG68R7N92W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SeSACTMDB/Info.plist;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치를 기반으로 주변 영화관 정보를 찾기위해 위치 접근 권한이 필요합니다";
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 사용";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치 사용";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "포토앨범 사용";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Contents;
@@ -505,7 +507,9 @@
 				DEVELOPMENT_TEAM = BG68R7N92W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SeSACTMDB/Info.plist;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치를 기반으로 주변 영화관 정보를 찾기위해 위치 접근 권한이 필요합니다";
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 사용";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치 사용";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "포토앨범 사용";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Contents;
