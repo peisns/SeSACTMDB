@@ -24,6 +24,11 @@
 		3579FB2D2899F6C8005A13F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3579FB2B2899F6C8005A13F3 /* LaunchScreen.storyboard */; };
 		3579FB352899F7E2005A13F3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 3579FB342899F7E2005A13F3 /* .gitignore */; };
 		3579FB3C2899FADF005A13F3 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3579FB3B2899FADF005A13F3 /* Constant.swift */; };
+		357BA4F428ADAFF100F1AC10 /* Introduce.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 357BA4F328ADAFF100F1AC10 /* Introduce.storyboard */; };
+		357BA4FB28ADB09700F1AC10 /* IntroduceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357BA4FA28ADB09700F1AC10 /* IntroduceViewController.swift */; };
+		357BA4FE28ADB12600F1AC10 /* IntroduceChild01ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357BA4FD28ADB12600F1AC10 /* IntroduceChild01ViewController.swift */; };
+		357BA50028ADB15000F1AC10 /* IntroduceChild02ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357BA4FF28ADB15000F1AC10 /* IntroduceChild02ViewController.swift */; };
+		357BA50228ADB15A00F1AC10 /* IntroduceChild03ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357BA50128ADB15A00F1AC10 /* IntroduceChild03ViewController.swift */; };
 		357E5A37289C163700537833 /* Credits.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 357E5A36289C163700537833 /* Credits.storyboard */; };
 		357E5A39289C173200537833 /* CreditsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357E5A38289C173200537833 /* CreditsTableViewController.swift */; };
 		357E5A3B289C1CDD00537833 /* CreditsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357E5A3A289C1CDD00537833 /* CreditsTableViewCell.swift */; };
@@ -61,6 +66,11 @@
 		3579FB2E2899F6C8005A13F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3579FB342899F7E2005A13F3 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		3579FB3B2899FADF005A13F3 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		357BA4F328ADAFF100F1AC10 /* Introduce.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Introduce.storyboard; sourceTree = "<group>"; };
+		357BA4FA28ADB09700F1AC10 /* IntroduceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceViewController.swift; sourceTree = "<group>"; };
+		357BA4FD28ADB12600F1AC10 /* IntroduceChild01ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceChild01ViewController.swift; sourceTree = "<group>"; };
+		357BA4FF28ADB15000F1AC10 /* IntroduceChild02ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceChild02ViewController.swift; sourceTree = "<group>"; };
+		357BA50128ADB15A00F1AC10 /* IntroduceChild03ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceChild03ViewController.swift; sourceTree = "<group>"; };
 		357E5A36289C163700537833 /* Credits.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Credits.storyboard; sourceTree = "<group>"; };
 		357E5A38289C173200537833 /* CreditsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsTableViewController.swift; sourceTree = "<group>"; };
 		357E5A3A289C1CDD00537833 /* CreditsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsTableViewCell.swift; sourceTree = "<group>"; };
@@ -122,6 +132,7 @@
 				351FD00B28A2AB2300522940 /* ContentsCollectionViewCell.xib */,
 				35DD282928A7C6F600959369 /* ProfileViewController.swift */,
 				356DF4E428A28ECB004A81A4 /* Poster */,
+				35DD282628A61D0600959369 /* Theater */,
 				356DF4E128A28BBA004A81A4 /* Banner */,
 			);
 			path = Contents;
@@ -168,12 +179,12 @@
 				35B3A4DD289A81F800D9E7EA /* Protocol */,
 				3579FB3A2899FACE005A13F3 /* Key */,
 				356DF4DA28A289E9004A81A4 /* Contents */,
-				35DD282628A61D0600959369 /* Theater */,
-				356DF4D928A289D3004A81A4 /* Credits */,
+				3579FB262899F6C7005A13F3 /* Main.storyboard */,
+				357BA4F528ADB00200F1AC10 /* Introduce */,
 				356DF4D828A289C2004A81A4 /* Video */,
+				356DF4D928A289D3004A81A4 /* Credits */,
 				3579FB202899F6C7005A13F3 /* AppDelegate.swift */,
 				3579FB222899F6C7005A13F3 /* SceneDelegate.swift */,
-				3579FB262899F6C7005A13F3 /* Main.storyboard */,
 				3579FB242899F6C7005A13F3 /* ViewController.swift */,
 				35B3A4DB289A81EE00D9E7EA /* MainCollectionViewCell.swift */,
 				3579FB292899F6C8005A13F3 /* Assets.xcassets */,
@@ -189,6 +200,26 @@
 				3579FB3B2899FADF005A13F3 /* Constant.swift */,
 			);
 			path = Key;
+			sourceTree = "<group>";
+		};
+		357BA4F528ADB00200F1AC10 /* Introduce */ = {
+			isa = PBXGroup;
+			children = (
+				357BA4F328ADAFF100F1AC10 /* Introduce.storyboard */,
+				357BA4FA28ADB09700F1AC10 /* IntroduceViewController.swift */,
+				357BA4FC28ADB0CB00F1AC10 /* IntroduceChild */,
+			);
+			path = Introduce;
+			sourceTree = "<group>";
+		};
+		357BA4FC28ADB0CB00F1AC10 /* IntroduceChild */ = {
+			isa = PBXGroup;
+			children = (
+				357BA4FD28ADB12600F1AC10 /* IntroduceChild01ViewController.swift */,
+				357BA4FF28ADB15000F1AC10 /* IntroduceChild02ViewController.swift */,
+				357BA50128ADB15A00F1AC10 /* IntroduceChild03ViewController.swift */,
+			);
+			path = IntroduceChild;
 			sourceTree = "<group>";
 		};
 		35AD76FD28A005F200B25B13 /* APIManager */ = {
@@ -290,6 +321,7 @@
 				351FD00D28A2AB2300522940 /* ContentsCollectionViewCell.xib in Resources */,
 				3579FB2D2899F6C8005A13F3 /* LaunchScreen.storyboard in Resources */,
 				3579FB2A2899F6C8005A13F3 /* Assets.xcassets in Resources */,
+				357BA4F428ADAFF100F1AC10 /* Introduce.storyboard in Resources */,
 				3579FB282899F6C7005A13F3 /* Main.storyboard in Resources */,
 				35DD282528A61D0300959369 /* Theater.storyboard in Resources */,
 				357E5A37289C163700537833 /* Credits.storyboard in Resources */,
@@ -313,15 +345,19 @@
 				356DF4DE28A28A53004A81A4 /* ContentsViewController.swift in Sources */,
 				3502FA4C28A2A53700964239 /* ContentsTableViewCell.swift in Sources */,
 				35DD282828A61D2900959369 /* TheaterViewController.swift in Sources */,
+				357BA50028ADB15000F1AC10 /* IntroduceChild02ViewController.swift in Sources */,
 				35DD282A28A7C6F600959369 /* ProfileViewController.swift in Sources */,
 				35DD282228A6191900959369 /* TheaterTableViewCell.swift in Sources */,
 				3579FB3C2899FADF005A13F3 /* Constant.swift in Sources */,
+				357BA4FB28ADB09700F1AC10 /* IntroduceViewController.swift in Sources */,
 				35AD76FC289D4DC100B25B13 /* VideoViewController.swift in Sources */,
+				357BA50228ADB15A00F1AC10 /* IntroduceChild03ViewController.swift in Sources */,
 				356DF4E028A28BAF004A81A4 /* ContentsBannerCollectionViewCell.swift in Sources */,
 				35AD76FF28A0061500B25B13 /* TMDBAPIManager.swift in Sources */,
 				35B3A4DC289A81EE00D9E7EA /* MainCollectionViewCell.swift in Sources */,
 				3579FB212899F6C7005A13F3 /* AppDelegate.swift in Sources */,
 				3579FB232899F6C7005A13F3 /* SceneDelegate.swift in Sources */,
+				357BA4FE28ADB12600F1AC10 /* IntroduceChild01ViewController.swift in Sources */,
 				35B3A4DF289A824200D9E7EA /* ReusableViewProtocol.swift in Sources */,
 				357E5A3B289C1CDD00537833 /* CreditsTableViewCell.swift in Sources */,
 				357E5A39289C173200537833 /* CreditsTableViewController.swift in Sources */,
@@ -479,7 +515,7 @@
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "포토앨범 사용";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = Introduce;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
@@ -512,7 +548,7 @@
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "포토앨범 사용";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = Introduce;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;

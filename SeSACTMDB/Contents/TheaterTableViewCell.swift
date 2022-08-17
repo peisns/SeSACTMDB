@@ -19,4 +19,10 @@ class TheaterTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    
+    func configureCell() {
+        backgroundColor  = .clear
+        theaterButton.layer.cornerRadius = 10
+        theaterButton.setTitle("영화관 찾기", for: .normal)
+    }
 }
