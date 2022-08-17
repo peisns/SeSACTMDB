@@ -45,6 +45,7 @@ class ContentsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if let savedImage = UserDefaults.standard.data(forKey: "Profile") {
             profileButton.setImage(UIImage(data: savedImage), for: .normal)
         }
@@ -56,44 +57,86 @@ class ContentsViewController: UIViewController {
         
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: false)
-
     }
     
-    
-    
-    
-    
     private func requestAPIData() {
-        getTMDBJson.shared.getTrendingData(startPage: 1) { totalCount, trendingMovieArray in
-            self.trendingMovieArray = trendingMovieArray
+        getTMDBJson.shared.getMovieInfoData(url: EndPoint.TMDB_TRENDING_URL + APIKey.TMDB_KEY + "&page=1") { totalCount, movieInfo in
+            self.trendingMovieArray = movieInfo
             self.bannerCollectionView.reloadData()
             
-            recommendMovieRequestAPI.shared.getVideoData(movieID: self.trendingMovieArray[0].id) { movieArray in
-                self.recommendMovieArray = movieArray
+            getTMDBJson.shared.getMovieInfoData(url: EndPoint.TMDB_BASE_URL + "\(String(self.trendingMovieArray[0].id))/recommendations?api_key=\(APIKey.TMDB_KEY)&language=en-US&page=1") { _, movieInfo in
+                self.recommendMovieArray = movieInfo
                 
-                let similarURL = EndPoint.TMDB_BASE_URL + String(trendingMovieArray[0].id) + EndPoint.TMDB_SIMILAR_URL
-                requestMovieArrayAPI.shared.getVideoData(url: similarURL) { movieArray in
-                    self.similarMovieArray = movieArray
+                let similarURL = EndPoint.TMDB_BASE_URL + String(self.trendingMovieArray[0].id) + EndPoint.TMDB_SIMILAR_URL
+                getTMDBJson.shared.getMovieInfoData(url: similarURL) { _, movieInfo in
+                    self.similarMovieArray = movieInfo
                     
                     let nowPlayingURL = EndPoint.TMDB_BASE_URL + EndPoint.TMDB_NOWPLAYING_URL
-                    requestMovieArrayAPI.shared.getVideoData(url: nowPlayingURL) { movieArray in
-                        self.nowPlayingMovieArray = movieArray
+                    getTMDBJson.shared.getMovieInfoData(url: nowPlayingURL) { _, movieInfo in
+                        self.nowPlayingMovieArray = movieInfo
                         
-                        requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_BASE_URL + EndPoint.TMDB_POPULAR_URL) { movieArray in
-                            self.popularMovieArray = movieArray
-                                                        
-                            requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_BASE_URL + EndPoint.TMDB_TOPRANK_URL) { movieArray in
-                                self.topRankMovieArray = movieArray
+                        getTMDBJson.shared.getMovieInfoData(url: EndPoint.TMDB_BASE_URL + EndPoint.TMDB_POPULAR_URL) { _, movieInfo in
+                            self.popularMovieArray = movieInfo
+                                           
+                            getTMDBJson.shared.getMovieInfoData(url: EndPoint.TMDB_BASE_URL + EndPoint.TMDB_TOPRANK_URL) { _, movieInfo in
+                                self.topRankMovieArray = movieInfo
                                 self.contentsTableView.reloadData()
+
+                            }
+//                            requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_BASE_URL + EndPoint.TMDB_TOPRANK_URL) { movieArray in
+//                                self.topRankMovieArray = movieArray
+//                                self.contentsTableView.reloadData()
+//
+//                        }
+//                        requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_BASE_URL + EndPoint.TMDB_POPULAR_URL) { movieArray in
+//                            self.popularMovieArray = movieArray
+//
+//                            requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_BASE_URL + EndPoint.TMDB_TOPRANK_URL) { movieArray in
+//                                self.topRankMovieArray = movieArray
+//                                self.contentsTableView.reloadData()
+//                    }
+//                    requestMovieArrayAPI.shared.getVideoData(url: nowPlayingURL) { movieArray in
+//                        self.nowPlayingMovieArray = movieArray
+//
+//                        requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_BASE_URL + EndPoint.TMDB_POPULAR_URL) { movieArray in
+//                            self.popularMovieArray = movieArray
+//
+//                            requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_BASE_URL + EndPoint.TMDB_TOPRANK_URL) { movieArray in
+//                                self.topRankMovieArray = movieArray
+//                                self.contentsTableView.reloadData()
+//                }
+                    
                                 
                             }
                         }
                     }
                 }
             }
-        }
+//            recommendMovieRequestAPI.shared.getVideoData(movieID: self.trendingMovieArray[0].id) { movieArray in
+//                self.recommendMovieArray = movieArray
+//
+//                let similarURL = EndPoint.TMDB_BASE_URL + String(self.trendingMovieArray[0].id) + EndPoint.TMDB_SIMILAR_URL
+//                requestMovieArrayAPI.shared.getVideoData(url: similarURL) { movieArray in
+//                    self.similarMovieArray = movieArray
+//
+//                    let nowPlayingURL = EndPoint.TMDB_BASE_URL + EndPoint.TMDB_NOWPLAYING_URL
+//                    requestMovieArrayAPI.shared.getVideoData(url: nowPlayingURL) { movieArray in
+//                        self.nowPlayingMovieArray = movieArray
+//
+//                        requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_BASE_URL + EndPoint.TMDB_POPULAR_URL) { movieArray in
+//                            self.popularMovieArray = movieArray
+//
+//                            requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_BASE_URL + EndPoint.TMDB_TOPRANK_URL) { movieArray in
+//                                self.topRankMovieArray = movieArray
+//                                self.contentsTableView.reloadData()
+//
+//                            }
+//                        }
+//                    }
+//                }
+//        }
         
-//        trendingRequestAPI.shared.getTrendingData(startPage: 1) { int, trendingMovieArray in
+//        getTMDBJson.shared.getTrendingData(startPage: 1) { totalCount, trendingMovieArray in
 //            self.trendingMovieArray = trendingMovieArray
 //            self.bannerCollectionView.reloadData()
 //
@@ -108,10 +151,10 @@ class ContentsViewController: UIViewController {
 //                    requestMovieArrayAPI.shared.getVideoData(url: nowPlayingURL) { movieArray in
 //                        self.nowPlayingMovieArray = movieArray
 //
-//                        requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_POPULAR_URL) { movieArray in
+//                        requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_BASE_URL + EndPoint.TMDB_POPULAR_URL) { movieArray in
 //                            self.popularMovieArray = movieArray
 //
-//                            requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_TOPRANK_URL) { movieArray in
+//                            requestMovieArrayAPI.shared.getVideoData(url: EndPoint.TMDB_BASE_URL + EndPoint.TMDB_TOPRANK_URL) { movieArray in
 //                                self.topRankMovieArray = movieArray
 //                                self.contentsTableView.reloadData()
 //
@@ -135,7 +178,6 @@ extension ContentsViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == bannerCollectionView {
-            
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentsBannerCollectionViewCell.reuseIdentifier, for: indexPath) as? ContentsBannerCollectionViewCell else { return UICollectionViewCell() }
             cell.posterView.titleLabel.text = trendingMovieArray[indexPath.item].title
             let ImageURL = URL(string:EndPoint.TMDB_IMAGE_URL + trendingMovieArray[indexPath.item].imageURL)
@@ -162,7 +204,6 @@ extension ContentsViewController: UICollectionViewDelegate, UICollectionViewData
                 let ImageURL = URL(string:EndPoint.TMDB_IMAGE_URL + popularMovieArray[indexPath.item].imageURL)
                 cell.posterView.posterImageView.kf.setImage(with: ImageURL)
                 cell.posterView.titleLabel.text = popularMovieArray[indexPath.item].title
-                
             } else if collectionView.tag == 4 {
                 let ImageURL = URL(string:EndPoint.TMDB_IMAGE_URL + topRankMovieArray[indexPath.item].imageURL)
                 cell.posterView.posterImageView.kf.setImage(with: ImageURL)

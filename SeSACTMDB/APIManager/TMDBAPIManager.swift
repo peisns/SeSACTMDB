@@ -21,7 +21,6 @@ class getTMDBJson {
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
-                
                 completionHandler(json)
                 
             case .failure(let error):
@@ -44,15 +43,14 @@ class getTMDBJson {
             completionHandler(genreDictionary)
         }
     }
-    
-    typealias completionHandler = (Int, [Movie]) -> Void
-    func getTrendingData(startPage: Int, completionHandler:@escaping completionHandler) {
-        let url = EndPoint.TMDB_URL + APIKey.TMDB_KEY + "&page=" + String(startPage)
+        
+    typealias getMovieInfoCompletionHandler = (Int?, [Movie]) -> Void
+    func getMovieInfoData(url:String, completionHandler:@escaping getMovieInfoCompletionHandler) {
         getJson(url: url) { json in
             var movieInfo: [Movie] = []
 
             let resultArray = json["results"].arrayValue
-            let totalCount = json["total_pages"].intValue
+            let totalCount = json["total_pages"].int
             for result in resultArray {
                 let id = result["id"].intValue
                 let release_date = result["release_date"].stringValue
@@ -70,131 +68,30 @@ class getTMDBJson {
             completionHandler(totalCount, movieInfo)
         }
     }
-}
-
-
-class creditRequestAPI {
-    static let shared = creditRequestAPI()
-    private init() { }
     
     func getCreditData(movieId: Int, completionHandler:@escaping ([String], [String])-> Void) {
-        
         let url = EndPoint.TMDB_BASE_URL + String(movieId) + "/credits?api_key=\(APIKey.TMDB_KEY)&language=en-US"
-        
-        AF.request(url, method: .get).validate().responseData { response in
-            switch response.result {
-            case .success(let value):
-                let json = JSON(value)
-                
-                let castArray = json["cast"].arrayValue
-                let crewArray = json["crew"].arrayValue
-                let casts = castArray.map { $0["name"].stringValue }
-                let crews = crewArray.map { $0["name"].stringValue }
-                
-                completionHandler(casts, crews)
-                
-            case .failure(let error):
-                print(error)
-            }
+        getJson(url: url) { json in
+            let castArray = json["cast"].arrayValue
+            let crewArray = json["crew"].arrayValue
+            let casts = castArray.map { $0["name"].stringValue }
+            let crews = crewArray.map { $0["name"].stringValue }
+            
+            completionHandler(casts, crews)
         }
     }
-}
-
-class videoRequestAPI {
-    static let shared = videoRequestAPI()
-    private init() { }
     
-    typealias completionHandler = (String, String) -> Void
-    func getVideoData(selectedMovieID:Int, completionHandler: @escaping completionHandler) {
+    typealias getVideoCompletionHandler = (String, String) -> Void
+    func getVideoData(selectedMovieID:Int, completionHandler: @escaping getVideoCompletionHandler) {
         let url = EndPoint.TMDB_BASE_URL + "\(selectedMovieID)/videos?api_key=\(APIKey.TMDB_KEY)&language=en-US"
+        getJson(url: url) { json in
+            let key = json["results"][0]["key"].stringValue
+            let site = json["results"][0]["site"].stringValue
             
-            AF.request(url, method: .get).validate().responseData { response in
-                switch response.result {
-                case .success(let value):
-                    let json = JSON(value)
-                    let key = json["results"][0]["key"].stringValue
-                    let site = json["results"][0]["site"].stringValue
-                    
-                    let url = site == "YouTube" ? "https://www.youtube.com/watch?v=" : "https://vimeo.com/"
-                    
-                    completionHandler(url, key)
-                    
-                case .failure(let error):
-                    print(error)
-            }
+            let url = site == "YouTube" ? "https://www.youtube.com/watch?v=" : "https://vimeo.com/"
+            
+            completionHandler(url, key)
         }
     }
 }
 
-class recommendMovieRequestAPI {
-    static let shared = recommendMovieRequestAPI()
-    private init() { }
-    
-    typealias completionHandler = ([Movie]) -> Void
-    func getVideoData(movieID:Int, completionHandler: @escaping completionHandler) {
-        let url = EndPoint.TMDB_BASE_URL + "\(movieID)/recommendations?api_key=\(APIKey.TMDB_KEY)&language=en-US&page=1"
-            
-            AF.request(url, method: .get).validate().responseData { response in
-                switch response.result {
-                case .success(let value):
-                    let json = JSON(value)
-                    let resultArray = json["results"].arrayValue
-                    var movieArray:[Movie] = []
-                    for result in resultArray {
-                        let id = result["id"].intValue
-                        let release_date = result["release_date"].stringValue
-                        let genre_idsArray = result["genre_ids"].arrayValue
-                        var genre_ids: [Int] = []
-                        for id in genre_idsArray {
-                            genre_ids.append(id.intValue)
-                        }
-                        let title = result["title"].stringValue
-                        let imageURL = result["poster_path"].stringValue
-                        let vote_average = result["vote_average"].doubleValue
-                        movieArray.append(Movie(id: id, release_date: release_date, genre_ids: genre_ids, title: title, imageURL: imageURL, vote_average: vote_average))
-                    }
-                    
-                    completionHandler(movieArray)
-                    
-                case .failure(let error):
-                    print(error)
-            }
-        }
-    }
-}
-
-class requestMovieArrayAPI {
-    static let shared = requestMovieArrayAPI()
-    private init() { }
-    
-    typealias completionHandler = ([Movie]) -> Void
-    func getVideoData(url: String, completionHandler: @escaping completionHandler) {
-        
-            AF.request(url, method: .get).validate().responseData { response in
-                switch response.result {
-                case .success(let value):
-                    let json = JSON(value)
-                    let resultArray = json["results"].arrayValue
-                    var movieArray:[Movie] = []
-                    for result in resultArray {
-                        let id = result["id"].intValue
-                        let release_date = result["release_date"].stringValue
-                        let genre_idsArray = result["genre_ids"].arrayValue
-                        var genre_ids: [Int] = []
-                        for id in genre_idsArray {
-                            genre_ids.append(id.intValue)
-                        }
-                        let title = result["title"].stringValue
-                        let imageURL = result["poster_path"].stringValue
-                        let vote_average = result["vote_average"].doubleValue
-                        movieArray.append(Movie(id: id, release_date: release_date, genre_ids: genre_ids, title: title, imageURL: imageURL, vote_average: vote_average))
-                    }
-                    
-                    completionHandler(movieArray)
-                    
-                case .failure(let error):
-                    print(error)
-            }
-        }
-    }
-}

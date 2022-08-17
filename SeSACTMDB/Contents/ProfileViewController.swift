@@ -24,6 +24,7 @@ class ProfileViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if let savedImage = UserDefaults.standard.data(forKey: "Profile") {
             profileImageView.image = UIImage(data: savedImage)
         }

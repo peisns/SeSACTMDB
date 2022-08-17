@@ -21,7 +21,7 @@ class VideoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        videoRequestAPI.shared.getVideoData(selectedMovieID: selectedMovieID) { url, key in
+        getTMDBJson.shared.getVideoData(selectedMovieID: selectedMovieID) { url, key in
             self.destinationURL = url + key
             self.openWebPage(to: self.destinationURL)
         }

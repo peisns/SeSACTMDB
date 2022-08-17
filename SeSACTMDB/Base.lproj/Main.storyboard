@@ -139,7 +139,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="kLz-K3-S68">
-                        <barButtonItem key="leftBarButtonItem" image="list.bullet" catalog="system" id="sak-uO-iLd"/>
+                        <barButtonItem key="leftBarButtonItem" image="list.bullet" catalog="system" id="sak-uO-iLd">
+                            <connections>
+                                <action selector="navigationLeftButtonClicked:" destination="BYZ-38-t0r" id="6SZ-0D-MzT"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="magnifyingglass" catalog="system" id="Cga-5O-nhB"/>
                     </navigationItem>
                     <connections>

@@ -43,6 +43,13 @@ class ViewController: UIViewController {
         requestAPI()
     }
     
+    @IBAction func navigationLeftButtonClicked(_ sender: UIBarButtonItem) {
+        let sb = UIStoryboard(name: "Contents", bundle: nil)
+        guard let vc = sb.instantiateViewController(withIdentifier: "ContentsViewController") as? ContentsViewController else { return }
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func genreRequest() {
         getTMDBJson.shared.genreJSON { dictionary in
             self.genreDictionary = dictionary
@@ -50,17 +57,11 @@ class ViewController: UIViewController {
     }
 
     func requestAPI() {
-        getTMDBJson.shared.getTrendingData(startPage: startPage) { totalCount, movieInfo in
+        getTMDBJson.shared.getMovieInfoData(url: EndPoint.TMDB_TRENDING_URL + APIKey.TMDB_KEY + "&page=" + String(startPage)) { totalCount, movieInfo in
             self.movieInfo.append(contentsOf: movieInfo)
-            self.totalCount = totalCount
+            self.totalCount = totalCount ?? 0
             self.mainCollectionView.reloadData()
         }
-        
-//        trendingRequestAPI.shared.getTrendingData(startPage: startPage) { totalCount, movieInfo in
-//            self.movieInfo.append(contentsOf: movieInfo)
-//            self.totalCount = totalCount
-//            self.mainCollectionView.reloadData()
-//        }
     }
 }
 
