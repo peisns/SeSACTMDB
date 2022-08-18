@@ -11,6 +11,7 @@
 		3515050628A879C900061612 /* YPImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 3515050528A879C900061612 /* YPImagePicker */; };
 		351FD00C28A2AB2300522940 /* ContentsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351FD00A28A2AB2300522940 /* ContentsCollectionViewCell.swift */; };
 		351FD00D28A2AB2300522940 /* ContentsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 351FD00B28A2AB2300522940 /* ContentsCollectionViewCell.xib */; };
+		354BE31228AE05CD004DB577 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354BE31128AE05CD004DB577 /* UIViewController+Extension.swift */; };
 		356DF4DC28A28A00004A81A4 /* Contents.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 356DF4DB28A28A00004A81A4 /* Contents.storyboard */; };
 		356DF4DE28A28A53004A81A4 /* ContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DF4DD28A28A53004A81A4 /* ContentsViewController.swift */; };
 		356DF4E028A28BAF004A81A4 /* ContentsBannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DF4DF28A28BAF004A81A4 /* ContentsBannerCollectionViewCell.swift */; };
@@ -29,6 +30,7 @@
 		357BA4FE28ADB12600F1AC10 /* IntroduceChild01ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357BA4FD28ADB12600F1AC10 /* IntroduceChild01ViewController.swift */; };
 		357BA50028ADB15000F1AC10 /* IntroduceChild02ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357BA4FF28ADB15000F1AC10 /* IntroduceChild02ViewController.swift */; };
 		357BA50228ADB15A00F1AC10 /* IntroduceChild03ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357BA50128ADB15A00F1AC10 /* IntroduceChild03ViewController.swift */; };
+		357BA50628ADBC3D00F1AC10 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 357BA50528ADBC3D00F1AC10 /* SnapKit */; };
 		357E5A37289C163700537833 /* Credits.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 357E5A36289C163700537833 /* Credits.storyboard */; };
 		357E5A39289C173200537833 /* CreditsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357E5A38289C173200537833 /* CreditsTableViewController.swift */; };
 		357E5A3B289C1CDD00537833 /* CreditsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357E5A3A289C1CDD00537833 /* CreditsTableViewCell.swift */; };
@@ -51,6 +53,7 @@
 		3502FA4B28A2A53700964239 /* ContentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsTableViewCell.swift; sourceTree = "<group>"; };
 		351FD00A28A2AB2300522940 /* ContentsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsCollectionViewCell.swift; sourceTree = "<group>"; };
 		351FD00B28A2AB2300522940 /* ContentsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentsCollectionViewCell.xib; sourceTree = "<group>"; };
+		354BE31128AE05CD004DB577 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIViewController+Extension.swift"; path = "SeSACTMDB/Extension/UIViewController+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		356DF4DB28A28A00004A81A4 /* Contents.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Contents.storyboard; sourceTree = "<group>"; };
 		356DF4DD28A28A53004A81A4 /* ContentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsViewController.swift; sourceTree = "<group>"; };
 		356DF4DF28A28BAF004A81A4 /* ContentsBannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsBannerCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -95,12 +98,21 @@
 				35B3A4E5289AB3B100D9E7EA /* Kingfisher in Frameworks */,
 				35B3A4E2289AB39600D9E7EA /* Alamofire in Frameworks */,
 				3515050628A879C900061612 /* YPImagePicker in Frameworks */,
+				357BA50628ADBC3D00F1AC10 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		354BE31328AE05DB004DB577 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				354BE31128AE05CD004DB577 /* UIViewController+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		356DF4D828A289C2004A81A4 /* Video */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,15 +190,10 @@
 				35AD76FD28A005F200B25B13 /* APIManager */,
 				35B3A4DD289A81F800D9E7EA /* Protocol */,
 				3579FB3A2899FACE005A13F3 /* Key */,
-				356DF4DA28A289E9004A81A4 /* Contents */,
-				3579FB262899F6C7005A13F3 /* Main.storyboard */,
+				354BE31328AE05DB004DB577 /* Extension */,
 				357BA4F528ADB00200F1AC10 /* Introduce */,
-				356DF4D828A289C2004A81A4 /* Video */,
-				356DF4D928A289D3004A81A4 /* Credits */,
 				3579FB202899F6C7005A13F3 /* AppDelegate.swift */,
 				3579FB222899F6C7005A13F3 /* SceneDelegate.swift */,
-				3579FB242899F6C7005A13F3 /* ViewController.swift */,
-				35B3A4DB289A81EE00D9E7EA /* MainCollectionViewCell.swift */,
 				3579FB292899F6C8005A13F3 /* Assets.xcassets */,
 				3579FB2B2899F6C8005A13F3 /* LaunchScreen.storyboard */,
 				3579FB2E2899F6C8005A13F3 /* Info.plist */,
@@ -218,6 +225,12 @@
 				357BA4FD28ADB12600F1AC10 /* IntroduceChild01ViewController.swift */,
 				357BA4FF28ADB15000F1AC10 /* IntroduceChild02ViewController.swift */,
 				357BA50128ADB15A00F1AC10 /* IntroduceChild03ViewController.swift */,
+				3579FB262899F6C7005A13F3 /* Main.storyboard */,
+				3579FB242899F6C7005A13F3 /* ViewController.swift */,
+				35B3A4DB289A81EE00D9E7EA /* MainCollectionViewCell.swift */,
+				356DF4D928A289D3004A81A4 /* Credits */,
+				356DF4D828A289C2004A81A4 /* Video */,
+				356DF4DA28A289E9004A81A4 /* Contents */,
 			);
 			path = IntroduceChild;
 			sourceTree = "<group>";
@@ -268,6 +281,7 @@
 				35B3A4E4289AB3B100D9E7EA /* Kingfisher */,
 				35B3A4E7289AB3DA00D9E7EA /* SwiftyJSON */,
 				3515050528A879C900061612 /* YPImagePicker */,
+				357BA50528ADBC3D00F1AC10 /* SnapKit */,
 			);
 			productName = SeSACTMDB;
 			productReference = 3579FB1D2899F6C7005A13F3 /* SeSACTMDB.app */;
@@ -302,6 +316,7 @@
 				35B3A4E3289AB3B100D9E7EA /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				35B3A4E6289AB3DA00D9E7EA /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				3515050428A879C800061612 /* XCRemoteSwiftPackageReference "YPImagePicker" */,
+				357BA50428ADBC3D00F1AC10 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 3579FB1E2899F6C7005A13F3 /* Products */;
 			projectDirPath = "";
@@ -346,6 +361,7 @@
 				3502FA4C28A2A53700964239 /* ContentsTableViewCell.swift in Sources */,
 				35DD282828A61D2900959369 /* TheaterViewController.swift in Sources */,
 				357BA50028ADB15000F1AC10 /* IntroduceChild02ViewController.swift in Sources */,
+				354BE31228AE05CD004DB577 /* UIViewController+Extension.swift in Sources */,
 				35DD282A28A7C6F600959369 /* ProfileViewController.swift in Sources */,
 				35DD282228A6191900959369 /* TheaterTableViewCell.swift in Sources */,
 				3579FB3C2899FADF005A13F3 /* Constant.swift in Sources */,
@@ -598,6 +614,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		357BA50428ADBC3D00F1AC10 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		35B3A4E0289AB39600D9E7EA /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -629,6 +653,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3515050428A879C800061612 /* XCRemoteSwiftPackageReference "YPImagePicker" */;
 			productName = YPImagePicker;
+		};
+		357BA50528ADBC3D00F1AC10 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 357BA50428ADBC3D00F1AC10 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 		35B3A4E1289AB39600D9E7EA /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

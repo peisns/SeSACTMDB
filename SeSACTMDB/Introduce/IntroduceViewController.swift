@@ -14,16 +14,15 @@ class IntroduceViewController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .orange
+        view.backgroundColor = .black
         createPageViewController()
         configurePageViewController()
     }
 
     func createPageViewController() {
-        let sb = UIStoryboard(name: "Introduce", bundle: nil)
-        guard let child01vc = sb.instantiateViewController(withIdentifier: IntroduceChild01ViewController.reuseIdentifier) as? IntroduceChild01ViewController else { return }
-        guard let child02vc = sb.instantiateViewController(withIdentifier: IntroduceChild02ViewController.reuseIdentifier) as? IntroduceChild01ViewController else { return }
-        guard let child03vc = sb.instantiateViewController(withIdentifier: IntroduceChild03ViewController.reuseIdentifier) as? IntroduceChild01ViewController else { return }
+        let child01vc = IntroduceChild01ViewController()
+        let child02vc = IntroduceChild02ViewController()
+        let child03vc = IntroduceChild03ViewController()
         
         introduceChildList = [child01vc, child02vc, child03vc]
     }
