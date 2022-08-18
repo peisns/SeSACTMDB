@@ -11,8 +11,9 @@ extension UIViewController {
     
     func presentScene<T: UIViewController>(name: String, vc: T, style: UIModalPresentationStyle) {
         let sb = UIStoryboard(name: name, bundle: nil)
-        let viewController = sb.instantiateViewController(withIdentifier: T.reuseIdentifier) as! T
-        viewController.modalPresentationStyle = style
-        self.present(viewController, animated: false)
+        let vc = sb.instantiateViewController(withIdentifier: T.reuseIdentifier) as! T
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = style
+        self.present(nav, animated: false)
     }
 }
