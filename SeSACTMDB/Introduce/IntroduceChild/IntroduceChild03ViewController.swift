@@ -7,9 +7,16 @@
 
 import UIKit
 
+//Location1. import
+import CoreLocation
+
 import SnapKit
 
 class IntroduceChild03ViewController: UIViewController {
+    
+    //location2. create Location Manager Instance
+    //when locationManager declared, call a locationManagerDidChangeAuthorization method
+    let locationManager = CLLocationManager()
     
     let topView: UIView = {
         let view = UIView()
@@ -139,13 +146,17 @@ class IntroduceChild03ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        
+    
+        locationManager.delegate = self
+    
         sendMainSceneButton.addTarget(self, action: #selector(presentToMainScene), for: .touchUpInside)
+        print(#function)
     }
     
     @objc func presentToMainScene() {
-        self.dismiss(animated: true)
-        presentScene(name: "Main", vc: ViewController(), style: .fullScreen)
+
+//        self.dismiss(animated: true)
+//        presentScene(name: "Main", vc: ViewController(), style: .fullScreen)
     }
 
     func configureUI() {
@@ -242,5 +253,99 @@ class IntroduceChild03ViewController: UIViewController {
             make.width.equalTo(view).inset(44)
             make.height.equalTo(44)
         }
+    }
+}
+
+extension IntroduceChild03ViewController {
+    
+    //check Device Location Authorization
+    func checkUserDeviceLocationServiceAuthorization() {
+        print(#function)
+        
+        //get authorizationStatus
+        let authorizationStatus: CLAuthorizationStatus
+        if #available(iOS 14.0, *) {
+            authorizationStatus = locationManager.authorizationStatus
+        } else {
+            authorizationStatus = CLLocationManager.authorizationStatus()
+        }
+        
+        //check iOS location active
+        //It isn't a app's authorization value but device's
+        if CLLocationManager.locationServicesEnabled() {
+            print("\(#function), locationServiceEnable == true")
+            checkUserCurrentLocationAuthorization(authorizationStatus: authorizationStatus)
+        } else {
+            print("위치 서비스가 꺼져 있습니다.")
+        }
+        
+        
+        
+    }
+    
+    // Location8. check app's location authorization
+    func checkUserCurrentLocationAuthorization(authorizationStatus: CLAuthorizationStatus) {
+        print(#function)
+        switch authorizationStatus {
+        case .notDetermined: // not determined yet
+            print("notDetermined")
+            
+            // locationManager.desiredAccuracy = kCLLocationAccuracyBest // set location Accuracy, default value is best on iOS
+            //request authorization to user
+            locationManager.requestWhenInUseAuthorization()
+            
+        case .restricted: // don't have authroziation
+            print("restricted")
+        case .denied:
+            print("denied")
+            presentAlertToGetAuthorization()
+        case .authorizedWhenInUse:
+            print("authorizedWhenInUse")
+            //call a startUpdatingLocation method to call a didUpdateLocations method
+            locationManager.startUpdatingLocation()
+        default:
+            print("default")
+        }
+    }
+
+    func presentAlertToGetAuthorization() {
+        let alert = UIAlertController(title: "위치 정보 이용 알림", message: "위치서비스를 이용할 수 없습니다. 주변 영화관의 검색을 위해서 위치 정보가 필요합니다. 기기의 '설정 > 개인정보 보호'에서 위치 서비스를 켜주세요.", preferredStyle: .alert)
+        
+        let move = UIAlertAction(title: "설정으로 이동", style: .destructive) { _ in
+            if let appSetting = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(appSetting)
+            }
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        
+        alert.addAction(move)
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true)
+    }
+}
+
+
+extension IntroduceChild03ViewController: CLLocationManagerDelegate {
+    
+    //Location5. Get User Location Info
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print(#function)
+        locationManager.stopUpdatingLocation()
+    }
+    
+    
+    //Location6. can't get User Location Info
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(#function)
+    }
+    
+    //location9. when changing user authorization
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        print(#function)
+        checkUserDeviceLocationServiceAuthorization()
+    }
+    //under iOS 14
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
     }
 }
