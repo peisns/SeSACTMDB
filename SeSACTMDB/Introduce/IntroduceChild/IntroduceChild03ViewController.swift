@@ -150,13 +150,14 @@ class IntroduceChild03ViewController: UIViewController {
         locationManager.delegate = self
     
         sendMainSceneButton.addTarget(self, action: #selector(presentToMainScene), for: .touchUpInside)
-        print(#function)
     }
-    
+        
     @objc func presentToMainScene() {
+//        print(#function)
+//        locationManager.requestWhenInUseAuthorization()
 
-//        self.dismiss(animated: true)
-//        presentScene(name: "Main", vc: ViewController(), style: .fullScreen)
+        self.dismiss(animated: true)
+        presentScene(name: "Main", vc: ViewController(), style: .fullScreen)
     }
 
     func configureUI() {
